@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../../HTML插件/bootstrap/bootstrap-icons.css">
+    <script src="../../../HTML插件/jQuery.min.js"></script>
+    <title>上网导航</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .head {
+            overflow: hidden;
+            width: 100%;
+        }
+        
+        .head p:first-child {
+            float: left;
+            color: black;
+            font-size: 24px;
+            padding: 20px;
+            cursor: pointer;
+        }
+        
+        .head p:last-child {
+            float: right;
+            color: black;
+            font-size: 24px;
+            padding: 20px;
+            cursor: pointer;
+        }
+        
+        .search .box {
+            border-radius: 50px;
+            height: 50px;
+            border: #000 solid 2px;
+            width: 800px;
+            margin: 0 auto;
+            overflow: visible;
+            background-color: rgba(0, 0, 0, 0.13);
+            position: relative;
+            top: 73px;
+        }
+        
+        .search .box>* {
+            float: left;
+        }
+        
+        .search .box p {
+            font-size: 24px;
+            line-height: 50px;
+            background-color: #fff;
+            color: #000;
+            width: 30px;
+            border-top-right-radius: 50px;
+            border-bottom-right-radius: 50px;
+            cursor: pointer;
+            margin-left: 70px;
+            transition: transfrom 0.5s;
+        }
+        
+        .search .box ul li img {
+            display: block;
+            width: 50px;
+            height: 50px;
+            background-color: #fff;
+            cursor: pointer;
+            margin-left: 20px;
+        }
+        
+        .search .box ul {
+            position: absolute;
+            z-index: 1;
+            height: 50px;
+            overflow: hidden;
+            transition: height 0.5s;
+        }
+        
+        .search .box input {
+            width: 640px;
+            font-size: 24px;
+            height: 50px;
+            outline: 0;
+            border: 0;
+            text-indent: 1em;
+            background-color: transparent;
+        }
+        
+        .search .box button {
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            background-color: transparent;
+            border: 0;
+            cursor: pointer;
+        }
+        
+        .search {
+            width: 100%;
+            height: 200px;
+        }
+        
+        .links {
+            width: 100%;
+        }
+        
+        .links ul {
+            width: 1000px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        
+        li {
+            list-style: none;
+        }
+        
+        .links ul li {
+            float: left;
+            width: 155px;
+            margin: 5px;
+            /* border: #000 solid 1px; */
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.829);
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .links ul li img {
+            width: 80px;
+            display: block;
+            height: 80px;
+            border-radius: 15px;
+            margin: 10px auto;
+        }
+        
+        .links ul li p {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: #000;
+        }
+        
+        .links ul li .add-item {
+            display: block;
+            font-size: 124px;
+            line-height: 130px;
+            color: #fff;
+            width: 100%;
+            text-align: center;
+        }
+        
+        a {
+            text-decoration: none;
+        }
+        
+        .semore {
+            width: 100%;
+            height: 100vh;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2;
+            display: none;
+        }
+        
+        .se {
+            width: 250px;
+            height: 350px;
+            position: absolute;
+            top: 65px;
+            right: 15px;
+            background-color: #fff;
+            box-shadow: 0 0 5px #000;
+            display: none;
+        }
+        
+        .leftmore {
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.13);
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2;
+            display: none;
+        }
+        
+        .left {
+            width: 350px;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.73);
+            position: absolute;
+            top: 0;
+            left: 0;
+            animation: fadeleft 0.6s;
+            display: none;
+            z-index: 3;
+        }
+        
+        @keyframes fadeleft {
+            from {
+                left: -350px;
+            }
+            to {
+                left: 0;
+            }
+        }
+        
+        .left ul li {
+            font-size: 24px;
+            line-height: 45px;
+            border-bottom: #fff solid 1px;
+            color: #fff;
+            font-weight: lighter;
+            cursor: pointer;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        
+        .links ul li span {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            display: block;
+            z-index: 1;
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+            border-radius: 5px;
+        }
+        
+        .links ul li span:hover {
+            background-color: aliceblue;
+        }
+        
+        .addmore {
+            width: 100%;
+            height: 100vh;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2;
+            display: none;
+        }
+        
+        .add {
+            width: 600px;
+            height: 293px;
+            background-color: #fff;
+            box-shadow: 0 0 5px #000;
+            display: none;
+            margin: 50px auto;
+        }
+        
+        .editmore {
+            width: 100%;
+            height: 100vh;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2;
+            display: none;
+        }
+        
+        .edit {
+            width: 600px;
+            height: 293px;
+            background-color: #fff;
+            box-shadow: 0 0 5px #000;
+            display: none;
+            margin: 50px auto;
+        }
+        
+        .add div p {
+            line-height: 40px;
+        }
+        
+        .add div p,
+        .add div input {
+            float: left;
+            font-size: 24px;
+        }
+        
+        .add input {
+            width: 385px;
+            padding: 5px;
+            height: 30px;
+        }
+        
+        .add h1 {
+            width: 100%;
+            line-height: 75px;
+            text-align: center;
+        }
+        
+        .add div {
+            overflow: hidden;
+            margin: 20px auto;
+            width: 460px;
+        }
+        
+        .add div button {
+            width: 297px;
+            font-size: 24px;
+            margin-top: 32px;
+        }
+        
+        .add div:last-child {
+            width: 600px;
+        }
+        
+        .edit div p {
+            line-height: 40px;
+        }
+        
+        .edit div p,
+        .edit div input {
+            float: left;
+            font-size: 24px;
+        }
+        
+        .edit input {
+            width: 385px;
+            padding: 5px;
+            height: 30px;
+        }
+        
+        .edit h1 {
+            width: 100%;
+            line-height: 75px;
+            text-align: center;
+        }
+        
+        .edit div {
+            overflow: hidden;
+            margin: 20px auto;
+            width: 460px;
+        }
+        
+        .edit div button {
+            width: 297px;
+            font-size: 24px;
+            margin-top: 32px;
+        }
+        
+        .edit div:last-child {
+            width: 600px;
+        }
+        
+        body {
+            background-image: url(https://s4.ax1x.com/2022/02/16/HfO3dS.jpg);
+            background-size: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="semore">
+        <div class="se">
+            <p>对不起，当前没有设置。</p>
+        </div>
+    </div>
+    <div class="leftmore">
+        <div class="left">
+            <ul>
+                <li onclick="alert('当前版本：0.1.2');">关于</li>
+            </ul>
+        </div>
+    </div>
+    <div class="addmore">
+        <div class="add">
+            <h1>添加一个链接</h1>
+            <div>
+                <p>URL:</p>
+                <input type="text" id="addlinkurl">
+            </div>
+            <div>
+                <p>标题:</p>
+                <input type="text" id="addlinktitle">
+            </div>
+            <div>
+                <button id="addlinkyes">添加</button>
+                <button id="addlinkno">取消</button>
+            </div>
+        </div>
+    </div>
+    <div class="editmore">
+        <div class="edit">
+            <h1>更改一个链接</h1>
+            <div>
+                <p>URL:</p>
+                <input type="text" id="editlinkurl">
+            </div>
+            <div>
+                <p>标题:</p>
+                <input type="text" id="editlinktitle">
+            </div>
+            <div>
+                <button id="editlinkyes">更改</button>
+                <button id="editlinkno">删除</button>
+            </div>
+        </div>
+    </div>
+    <div class="head">
+        <p class="bi bi-list toleft"></p>
+        <p class="bi bi-gear tose"></p>
+    </div>
+    <div class="search">
+        <div class="box">
+            <ul>
+                <li><img src="http://www.baidu.com/favicon.ico" alt="" /></li>
+                <li><img src="http://www.baidu.com/favicon.ico" alt="" /></li>
+                <li><img src="http://www.sogou.com/favicon.ico" alt=""></li>
+                <li><img src="http://bing.com/favicon.ico" alt=""></li>
+                <li><img src="https://www.so.com/favicon.ico" alt=""></li>
+            </ul>
+            <p class="bi bi-chevron-down"></p>
+            <input type="search" id="searchtext" />
+            <button class="bi bi-search" onclick="toso();"></button>
+        </div>
+    </div>
+    <div class="links">
+        <ul>
+
+        </ul>
+    </div>
+    <script>
+        function toso() {
+            var str = $("#searchtext").val();
+            if (localStorage.seurl == "1") {
+                window.location.href = "http://www.baidu.com/s?wd=" + str;
+            } else if (localStorage.seurl == "2") {
+                window.location.href = "http://www.sogou.com/web?query=" + str;
+            } else if (localStorage.seurl == "3") {
+                window.location.href = "http://bing.com/search?q=" + str;
+            } else if (localStorage.seurl == "4") {
+                window.location.href = "http://www.so.com/s?q=" + str;
+            }
+        }
+        if (localStorage.linkm == undefined) {
+            localStorage.linkm = '[{"url":"http://smalla001.github.io/","title":"陈思全的博客"}]';
+            localStorage.seurl = "1";
+        }
+        soreset();
+
+        function soreset() {
+            if (localStorage.seurl == '1') {
+                $(".search .box ul li img:first").attr("src", "http://www.baidu.com/favicon.ico");
+            } else if (localStorage.seurl == '2') {
+                $(".search .box ul li img:first").attr("src", "http://www.sogou.com/favicon.ico");
+            } else if (localStorage.seurl == '3') {
+                $(".search .box ul li img:first").attr("src", "http://bing.com/favicon.ico");
+            } else if (localStorage.seurl == '4') {
+                $(".search .box ul li img:first").attr("src", "http://www.so.com/favicon.ico");
+            }
+        }
+        linkreset();
+
+        function linkreset() {
+            $(".links ul").html("");
+            var linkjson = localStorage.linkm;
+            var linkobj = JSON.parse(linkjson);
+            for (var i = 0; i < linkobj.length; i++) {
+                $(".links ul").html($(".links ul").html() + '<li>' +
+                    '<span class="bi bi-pencil linkedit"></span>' +
+                    '<a href="' + linkobj[i].url + '">' +
+                    '<img src="' + findicon(linkobj[i].url) + '" alt="">' +
+                    '<p>' + linkobj[i].title + '</p>' +
+                    '</a></li>');
+            }
+            if ($(".links ul li").length < 12) {
+                $(".links ul").html($(".links ul").html() + '<li><q class="bi bi-plus add-item"></q></li>');
+            }
+        }
+
+        function findicon(str) {
+            var data = "";
+            data = str.substring(0, str.indexOf("/", 7)) + "/favicon.ico";
+            return data;
+        }
+        $("#searchtext").keydown(function(e) {
+            if (e.keyCode == 13) {
+                toso();
+            }
+        });
+        $("#addlinkyes").click(function() {
+            var linkjson = localStorage.linkm;
+            var linkobj = JSON.parse(linkjson);
+            if ($("#addlinktitle").val() == "" || $("#addlinkurl").val() == "") {
+                alert("糊弄我呢！");
+            } else {
+                if ($("#editlinkurl").val().indexOf("://") == -1) {
+                    $("#editlinkurl").val("http://" + $("#editlinkurl").val());
+                } else if ($("#editlinkurl").val().indexOf("/", 7) == -1) {
+                    $("#editlinkurl").val($("#editlinkurl").val() + "/")
+                }
+                linkobj[linkobj.length] = {
+                    "title": $("#addlinktitle").val(),
+                    "url": $("#addlinkurl").val()
+                }
+                localStorage.linkm = JSON.stringify(linkobj);
+                linkreset();
+                $(".addmore").hide();
+                $(".add").hide();
+            }
+        });
+        $("#addlinkno").click(function() {
+            $(".addmore").hide();
+            $(".add").hide();
+        });
+        $(".toleft").click(function() {
+            $(".leftmore").toggle();
+            $(".left").toggle();
+        });
+        var sulflag = 0;
+        $(".search .box p").click(function() {
+            if (sulflag == 0) {
+                $(".search .box p").css("transfrom", "rotate(180deg)");
+                $(".search .box ul").css("height", "250px");
+                sulflag = 1;
+            } else {
+                $(".search .box p").css("transfrom", "rotate(0deg)");
+                $(".search .box ul").css("height", "50px");
+                sulflag = 0;
+            }
+        });
+        $(".search .box ul li").click(function() {
+            var index = $(".search .box ul li").index(this);
+            if (index != 0) {
+                localStorage.seurl = index.toString();
+            }
+            soreset();
+            $(".search .box p").css("transfrom", "rotate(0deg)");
+            $(".search .box ul").css("height", "50px");
+            sulflag = 0;
+        });
+        $(".leftmore").click(function() {
+            $(".leftmore").toggle();
+            $(".left").toggle();
+        });
+        $(".left").click(function() {
+            $(".leftmore").toggle();
+            $(".left").toggle();
+        });
+        $(".tose").click(function() {
+            $(".semore").toggle();
+            $(".se").toggle();
+        });
+        $(".semore").click(function() {
+            $(".semore").toggle();
+            $(".se").toggle();
+        });
+        $(".se").click(function() {
+            $(".semore").toggle();
+            $(".se").toggle();
+        });
+        var index;
+        $(".linkedit").click(function() {
+            $(".editmore").toggle();
+            $(".edit").toggle();
+            index = $(".linkedit").index(this);
+            var linkobj = JSON.parse(localStorage.linkm);
+            $("#editlinkurl").val(linkobj[index].url);
+            $("#editlinktitle").val(linkobj[index].title);
+        });
+        $("#editlinkyes").click(function() {
+            var linkjson = localStorage.linkm;
+            var linkobj = JSON.parse(linkjson);
+            if ($("#editlinktitle").val() == "" || $("#editlinkurl").val() == "") {
+                alert("糊弄我呢！");
+            } else {
+                if ($("#editlinkurl").val().indexOf("://") == -1) {
+                    $("#editlinkurl").val("http://" + $("#editlinkurl").val());
+                } else if ($("#editlinkurl").val().indexOf("/", 7) == -1) {
+                    $("#editlinkurl").val($("#editlinkurl").val() + "/")
+                }
+                linkobj[index] = {
+                    "title": $("#editlinktitle").val(),
+                    "url": $("#editlinkurl").val()
+                }
+                localStorage.linkm = JSON.stringify(linkobj);
+                linkreset();
+                $(".editmore").hide();
+                $(".edit").hide();
+            }
+        });
+        $("#editlinkno").click(function() {
+            var linkjson = localStorage.linkm;
+            var linkobj = JSON.parse(linkjson);
+            linkobj.splice(index);
+            localStorage.linkm = JSON.stringify(linkobj);
+            linkreset();
+            $(".editmore").hide();
+            $(".edit").hide();
+        });
+        $(".edit").click(function() {
+            $(".editmore").toggle();
+            $(".edit").toggle();
+        });
+        $(".editmore").click(function() {
+            $(".editmore").toggle();
+            $(".edit").toggle();
+        });
+        $(".add-item").click(function() {
+            $(".addmore").toggle();
+            $(".add").toggle();
+        });
+        $(".add").click(function() {
+            $(".addmore").toggle();
+            $(".add").toggle();
+        });
+        $(".addmore").click(function() {
+            $(".addmore").toggle();
+            $(".add").toggle();
+        });
+    </script>
+</body>
+
+</html>
