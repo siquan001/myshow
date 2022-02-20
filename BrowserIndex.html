@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="bootstrap-icons.css">
-    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="../../../HTML插件/bootstrap/bootstrap-icons.css">
+    <script src="../../../HTML插件/jQuery.min.js"></script>
     <title>上网导航</title>
     <style>
         * {
@@ -62,6 +62,7 @@
             cursor: pointer;
             margin-left: 70px;
             transition: transfrom 0.5s;
+            transform: rotate(0deg);
         }
         
         .search .box ul li img {
@@ -369,7 +370,7 @@
     <div class="leftmore">
         <div class="left">
             <ul>
-                <li onclick="alert('当前版本：0.1.2');">关于</li>
+                <li onclick="alert('当前版本：0.3.5');">关于</li>
             </ul>
         </div>
     </div>
@@ -385,8 +386,8 @@
                 <input type="text" id="addlinktitle">
             </div>
             <div>
-                <button id="addlinkyes">添加</button>
-                <button id="addlinkno">取消</button>
+                <button onclick="addlinkyes();">添加</button>
+                <button onclick="addlinkno();">取消</button>
             </div>
         </div>
     </div>
@@ -402,8 +403,8 @@
                 <input type="text" id="editlinktitle">
             </div>
             <div>
-                <button id="editlinkyes">更改</button>
-                <button id="editlinkno">删除</button>
+                <button onclick="editlinkyes();">更改</button>
+                <button onclick="editlinkno();">删除</button>
             </div>
         </div>
     </div>
@@ -431,7 +432,6 @@
         </ul>
     </div>
     <script>
-
         function toso() {
             var str = $("#searchtext").val();
             if (localStorage.seurl == "1") {
@@ -447,7 +447,7 @@
         if (localStorage.linkm == undefined) {
             localStorage.linkm = '[{"url":"http://smalla001.github.io/","title":"陈思全的博客"}]';
             localStorage.seurl = "1";
-                    alert("十分抱歉，我们的网页出现了一个无法修复的bug：当你添加、更改、删除链接一次后，会出现添加、更改、删除链接按钮失灵的情况，需刷新。如果你想帮忙解决这个问题，可以访问http://github.com/smalla001/myshow/blob/main/BrowserIndex.html，反馈至chensiquan2022@163.com，非常感谢！");
+
         }
         soreset();
 
@@ -470,20 +470,24 @@
             var linkobj = JSON.parse(linkjson);
             for (var i = 0; i < linkobj.length; i++) {
                 $(".links ul").html($(".links ul").html() + '<li>' +
-                    '<span class="bi bi-pencil linkedit"></span>' +
+                    '<span class="bi bi-pencil linkedit" onclick="linkedit(' + i + ');"></span>' +
                     '<a href="' + linkobj[i].url + '">' +
                     '<img src="' + findicon(linkobj[i].url) + '" alt="">' +
                     '<p>' + linkobj[i].title + '</p>' +
                     '</a></li>');
             }
             if ($(".links ul li").length < 12) {
-                $(".links ul").html($(".links ul").html() + '<li><q class="bi bi-plus add-item"></q></li>');
+                $(".links ul").html($(".links ul").html() + '<li><q class="bi bi-plus add-item" onclick="addlink();"></q></li>');
             }
         }
 
         function findicon(str) {
-            var data = "";
-            data = str.substring(0, str.indexOf("/", 7)) + "/favicon.ico";
+            var data = str;
+            if (data.indexOf("/", 7) != -1) {
+                data = data.substring(0, str.indexOf("/", 7)) + "/favicon.ico";
+            } else {
+                data = data + "/favicon.ico";
+            }
             return data;
         }
         $("#searchtext").keydown(function(e) {
@@ -491,17 +495,13 @@
                 toso();
             }
         });
-        $("#addlinkyes").click(function() {
+
+        function addlinkyes() {
             var linkjson = localStorage.linkm;
             var linkobj = JSON.parse(linkjson);
             if ($("#addlinktitle").val() == "" || $("#addlinkurl").val() == "") {
                 alert("糊弄我呢！");
             } else {
-                if ($("#editlinkurl").val().indexOf("://") == -1) {
-                    $("#editlinkurl").val("http://" + $("#editlinkurl").val());
-                } else if ($("#editlinkurl").val().indexOf("/", 7) == -1) {
-                    $("#editlinkurl").val($("#editlinkurl").val() + "/")
-                }
                 linkobj[linkobj.length] = {
                     "title": $("#addlinktitle").val(),
                     "url": $("#addlinkurl").val()
@@ -510,12 +510,15 @@
                 linkreset();
                 $(".addmore").hide();
                 $(".add").hide();
+                $("#addlinktitle").val("");
+                $("#addlinkurl").val("");
             }
-        });
-        $("#addlinkno").click(function() {
+        }
+
+        function addlinkno() {
             $(".addmore").hide();
             $(".add").hide();
-        });
+        }
         $(".toleft").click(function() {
             $(".leftmore").toggle();
             $(".left").toggle();
@@ -523,11 +526,11 @@
         var sulflag = 0;
         $(".search .box p").click(function() {
             if (sulflag == 0) {
-                $(".search .box p").css("transfrom", "rotate(180deg)");
+                $(".search .box p").attr("class", "bi bi-chevron-up");
                 $(".search .box ul").css("height", "250px");
                 sulflag = 1;
-            } else {
-                $(".search .box p").css("transfrom", "rotate(0deg)");
+            } else if (sulflag == 1) {
+                $(".search .box p").attr("class", "bi bi-chevron-down");
                 $(".search .box ul").css("height", "50px");
                 sulflag = 0;
             }
@@ -563,25 +566,23 @@
             $(".se").toggle();
         });
         var index;
-        $(".linkedit").click(function() {
+
+        function linkedit(i) {
             $(".editmore").toggle();
             $(".edit").toggle();
-            index = $(".linkedit").index(this);
+            index = i;
+            // alert(index);
             var linkobj = JSON.parse(localStorage.linkm);
             $("#editlinkurl").val(linkobj[index].url);
             $("#editlinktitle").val(linkobj[index].title);
-        });
-        $("#editlinkyes").click(function() {
+        }
+
+        function editlinkyes() {
             var linkjson = localStorage.linkm;
             var linkobj = JSON.parse(linkjson);
             if ($("#editlinktitle").val() == "" || $("#editlinkurl").val() == "") {
                 alert("糊弄我呢！");
             } else {
-                if ($("#editlinkurl").val().indexOf("://") == -1) {
-                    $("#editlinkurl").val("http://" + $("#editlinkurl").val());
-                } else if ($("#editlinkurl").val().indexOf("/", 7) == -1) {
-                    $("#editlinkurl").val($("#editlinkurl").val() + "/")
-                }
                 linkobj[index] = {
                     "title": $("#editlinktitle").val(),
                     "url": $("#editlinkurl").val()
@@ -591,8 +592,9 @@
                 $(".editmore").hide();
                 $(".edit").hide();
             }
-        });
-        $("#editlinkno").click(function() {
+        }
+
+        function editlinkno() {
             var linkjson = localStorage.linkm;
             var linkobj = JSON.parse(linkjson);
             linkobj.splice(index);
@@ -600,7 +602,7 @@
             linkreset();
             $(".editmore").hide();
             $(".edit").hide();
-        });
+        }
         $(".edit").click(function() {
             $(".editmore").toggle();
             $(".edit").toggle();
@@ -609,10 +611,11 @@
             $(".editmore").toggle();
             $(".edit").toggle();
         });
-        $(".add-item").click(function() {
+
+        function addlink() {
             $(".addmore").toggle();
             $(".add").toggle();
-        });
+        }
         $(".add").click(function() {
             $(".addmore").toggle();
             $(".add").toggle();
