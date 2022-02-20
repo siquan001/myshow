@@ -431,7 +431,7 @@
         </ul>
     </div>
     <script>
-        alert("十分抱歉，我们的网页出现了一个无法修复的bug：当你添加、更改、删除链接一次后，会出现添加、更改、删除链接按钮失灵的情况，需刷新。如果你想帮忙解决这个问题，可以访问http://github.com/smalla001/myshow/blob/main/BrowserIndex.html，反馈至chensiquan2022@163.com，非常感谢！");
+
         function toso() {
             var str = $("#searchtext").val();
             if (localStorage.seurl == "1") {
@@ -447,6 +447,7 @@
         if (localStorage.linkm == undefined) {
             localStorage.linkm = '[{"url":"http://smalla001.github.io/","title":"陈思全的博客"}]';
             localStorage.seurl = "1";
+                    alert("十分抱歉，我们的网页出现了一个无法修复的bug：当你添加、更改、删除链接一次后，会出现添加、更改、删除链接按钮失灵的情况，需刷新。如果你想帮忙解决这个问题，可以访问http://github.com/smalla001/myshow/blob/main/BrowserIndex.html，反馈至chensiquan2022@163.com，非常感谢！");
         }
         soreset();
 
