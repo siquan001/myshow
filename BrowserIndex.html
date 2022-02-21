@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../../HTML插件/bootstrap/bootstrap-icons.css">
-    <script src="../../../HTML插件/jQuery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <title>上网导航</title>
     <style>
         * {
@@ -25,6 +25,13 @@
             font-size: 24px;
             padding: 20px;
             cursor: pointer;
+        }
+        
+        .head p:nth-child(3) {
+            float: left;
+            color: black;
+            font-size: 24px;
+            padding: 20px;
         }
         
         .head p:last-child {
@@ -359,6 +366,16 @@
             background-size: 1500px;
             background-position-x: center;
         }
+        
+        .weaimg {
+            background-image: url(img/weather.png);
+            background-repeat: no-repeat;
+            background-size: 400px;
+            background-position: -70px -70px;
+            width: 71px;
+            height: 71px;
+            float: left;
+        }
     </style>
 </head>
 
@@ -371,7 +388,7 @@
     <div class="leftmore">
         <div class="left">
             <ul>
-                <li onclick="alert('当前版本：0.3.5');">关于</li>
+                <li onclick="alert('当前版本：0.4.5');">关于</li>
             </ul>
         </div>
     </div>
@@ -411,6 +428,8 @@
     </div>
     <div class="head">
         <p class="bi bi-list toleft"></p>
+        <p class="weaimg" onclick="window.location.href='https://www.msn.cn/zh-cn/weather/'"></p>
+        <p id="weather" onclick="window.location.href='https://www.msn.cn/zh-cn/weather/'"> </p>
         <p class="bi bi-gear tose"></p>
     </div>
     <div class="search">
@@ -624,6 +643,38 @@
         $(".addmore").click(function() {
             $(".addmore").toggle();
             $(".add").toggle();
+        });
+        // 请求
+        $.ajax({
+            type: "GET",
+            url: "https://tianqiapi.com/api?version=v6&appid=17389727&appsecret=pjUG7lLe",
+            dataType: 'JSON',
+            success: function(res) {
+                // 成功的回调
+                $("#weather").html($("#weather").html() + res.wea + "&nbsp;&nbsp;&nbsp;" + res.tem + "°C");
+                console.log(res);
+                var pm = "";
+                if (res.wea_img == "xue") {
+                    pm = "-160px -96px";
+                } else if (res.wea_img == "yun") {
+                    pm = "-160px 0px";
+                } else if (res.wea_img == "lei") {
+                    pm = "-327px -187px";
+                } else if (res.wea_img == "shachen") {
+                    pm = "-242px -187px";
+                } else if (res.wea_img == "yu") {
+                    pm = "-71px -96px";
+                } else if (res.wea_img == "wu") {
+                    pm = "-71px -190px";
+                } else if (res.wea_img == "yin") {
+                    pm = "0 0";
+                } else if (res.wea_img == "qing") {
+                    pm = "-71px 0px";
+                } else if (res.wea_img == "bingbao") {
+                    pm = "-157px -99px";
+                }
+                $(".weaimg").css("background-position", pm);
+            }
         });
     </script>
 </body>
