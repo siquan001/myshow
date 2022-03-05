@@ -3,16 +3,27 @@
   <head>
     <title>我的展示台</title>
     <style>
-      body{
-      display:flex;
-        align-items:center;
-        justify-content: center;
-        width:100vm;
-        height:100vh;
+      li{
+        width:100%;
+        padding:20px;
+        background:#fff;
+            transition: all .3s;
+
+      }
+      li a {
+    text-decoration: none;
+    color: black;
+    overflow: hidden;
+}
+      li:hover{
+        background:#eee;
       }
     </style>
   </head>
   <body>
-    <h1>当前还没有DEMO</h1>
+    <ul>
+      <li><a href="BrowserIndex.html" target="_blank">浏览器主页</a></li>
+      <li><a href="GoogleLoad.html" target="_blank">GoogleChrome加载动画</a></li>
+    </ul>
   </body>
 </html>
