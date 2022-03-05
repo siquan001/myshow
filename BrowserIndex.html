@@ -492,7 +492,7 @@
                 $(".links ul").html($(".links ul").html() + '<li>' +
                     '<span class="bi bi-pencil linkedit" onclick="linkedit(' + i + ');"></span>' +
                     '<a href="' + linkobj[i].url + '">' +
-                    '<img src="' + findicon(linkobj[i].url) + '" alt="">' +
+                    '<img src="' + findicon(linkobj[i].url) + '" alt="" onerror="errorimg(' + i + ');">' +
                     '<p>' + linkobj[i].title + '</p>' +
                     '</a></li>');
             }
@@ -501,13 +501,20 @@
             }
         }
 
+        function errorimg(obj) {
+            obj.src = "https://api.iowen.cn/favicon/chrome.google.com.png"
+        }
+
         function findicon(str) {
             var data = str;
-            if (data.indexOf("//") != -1) {
-                data = "https://api.iowen.cn/favicon/" + data.substring(str.indexOf("//"), str.length) + ".png";
+            if (data.indexOf("//") != -1 && data.indexOf("/", 7) != -1) {
+                data = "https://api.iowen.cn/favicon/" + data.substring(data.indexOf("//") + 2, data.indexOf("/", 7)) + ".png";
+            } else if (data.indexOf("/", 7) == -1) {
+                data = "https://api.iowen.cn/favicon/" + data.substring(data.indexOf("//") + 2, data.length) + ".png";
             } else {
-                data = "https://api.iowen.cn/favicon/http://github.com/.png"
+                data = "https://api.iowen.cn/favicon/chrome.google.com.png"
             }
+            console.log(data);
             return data;
         }
         $("#searchtext").keydown(function(e) {
