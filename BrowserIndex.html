@@ -388,7 +388,7 @@
     <div class="leftmore">
         <div class="left">
             <ul>
-                <li onclick="alert('当前版本：0.4.5');">关于</li>
+                <li onclick="alert('当前版本：0.6.8');">关于</li>
             </ul>
         </div>
     </div>
@@ -503,10 +503,10 @@
 
         function findicon(str) {
             var data = str;
-            if (data.indexOf("/", 7) != -1) {
-                data = data.substring(0, str.indexOf("/", 7)) + "/favicon.ico";
+            if (data.indexOf("//") != -1) {
+                data = "https://api.iowen.cn/favicon/" + data.substring(str.indexOf("//"), str.length) + ".png";
             } else {
-                data = data + "/favicon.ico";
+                data = "https://api.iowen.cn/favicon/http://github.com/.png"
             }
             return data;
         }
@@ -522,6 +522,9 @@
             if ($("#addlinktitle").val() == "" || $("#addlinkurl").val() == "") {
                 alert("糊弄我呢！");
             } else {
+                if ($("#addlinkurl").val().indexOf("://") == -1) {
+                    $("#addlinkurl").val("http://" + $("#addlinkurl").val());
+                }
                 linkobj[linkobj.length] = {
                     "title": $("#addlinktitle").val(),
                     "url": $("#addlinkurl").val()
@@ -603,6 +606,9 @@
             if ($("#editlinktitle").val() == "" || $("#editlinkurl").val() == "") {
                 alert("糊弄我呢！");
             } else {
+                if ($("#editlinkurl").val().indexOf("://") == -1) {
+                    $("#editlinkurl").val("http://" + $("#editlinkurl").val());
+                }
                 linkobj[index] = {
                     "title": $("#editlinktitle").val(),
                     "url": $("#editlinkurl").val()
