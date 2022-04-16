@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas 绘图</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        
+        .top {
+            width: 100%;
+            height: 50px;
+            max-width: 1000px;
+        }
+        
+        .top p {
+            float: left;
+            margin: 0 20px;
+            line-height: 50px;
+        }
+        
+        .top p button {
+            border: 0;
+            outline: 0;
+            padding: 5px 10px;
+            background-color: blue;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        canvas {
+            max-width: 1000px;
+            border: #333 solid 2px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 大家好，今天写一个Canvas绘图板，主要写JS, CSS代码写好了，很简单。 -->
+    <div class="top">
+        <!-- input:color是选择颜色的，value是默认颜色 -->
+        <p>颜色：<input type="color" id="a" value="#333333"></p>
+        <!-- input:range 是拖动条，value是默认值，min最小，max最大 -->
+        <p>粗细<input type="range" id="b" value="5" min="1" max="50"></p>
+        <p><button id="c">清空画布</button> </p>
+    </div>
+    <canvas width="1000px" height="550px"></canvas>
+</body>
+<script>
+    // 先获取所有的元素
+    let color = document.querySelector("#a"),
+        range = document.querySelector("#b"),
+        clear = document.querySelector("#c"),
+        cvs = document.querySelector("canvas");
+    //为Canvas打开一个2d绘图
+    let ctx = cvs.getContext("2d");
+    let colorv = color.value;
+    let widthv = range.value;
+    color.addEventListener("change", function() {
+        colorv = color.value;
+        //在color发生改变时更新colorv
+    })
+    range.addEventListener("change", function() {
+        widthv = range.value;
+        //同理
+    });
+    let flag = false;
+    //OK 我们可以开始绘图了
+    cvs.addEventListener('mousedown', function(e) {
+        //当鼠标按下时
+        //flag为true
+        flag = true;
+        let left = cvs.getBoundingClientRect().left;
+        let top = cvs.getBoundingClientRect().top;
+        //获取canvas分别距离左边和上面的距离，getBoundingClientRect()可以获取上下左右的距离和宽高
+        //然后用e.pageX/Y分别减去left和top
+        let mX = e.pageX - left;
+        let mY = e.pageY - top;
+        //设置颜色和粗细；
+        ctx.strokeStyle = colorv;
+        ctx.lineWidth = widthv;
+        //打开一个绘图通道
+        ctx.beginPath();
+        ctx.moveTo(mX, mY);
+    });
+    cvs.addEventListener('mousemove', function(e) {
+        //当鼠标移动时
+        let left = cvs.getBoundingClientRect().left;
+        let top = cvs.getBoundingClientRect().top;
+        //获取canvas分别距离左边和上面的距离，getBoundingClientRect()可以获取上下左右的距离和宽高
+        //然后用e.pageX/Y分别减去left和top
+        let mX = e.pageX - left;
+        let mY = e.pageY - top;
+        //只有鼠标按下后，flag为true，才能绘图
+        if (flag) {
+            ctx.lineTo(mX, mY);
+            ctx.stroke();
+            //关闭绘图通道
+        }
+
+    });
+    cvs.addEventListener("mouseup", function() {
+        flag = false;
+    });
+    //现在有一个问题，我在没有按下鼠标时，也会绘图，用最笨的方法
+    //写清空画布
+    clear.addEventListener('click', function() {
+        //clearRect方法可以清除画布中的一定区域，我们从左上角到右下角全部清除
+        ctx.clearRect(0, 0, cvs.getBoundingClientRect().width, cvs.getBoundingClientRect().height)
+    });
+    //OK
+</script>
+
+</html>
