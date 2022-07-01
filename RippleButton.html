@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>按钮波纹</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            /* 居中 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        button {
+            /* 取消默认样式 */
+            border: 0;
+            outline: 0;
+            font-size: 26px;
+            /* 字母大写 */
+            text-transform: uppercase;
+            padding: 12px;
+            border-radius: 5px;
+            display: block;
+            cursor: pointer;
+            background: #009688;
+            color: white;
+            margin: 5px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        button span {
+            position: absolute;
+            border-radius: 100%;
+            /* 向上向右平移本身的50%，使span在变大时保持位置不变 */
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            background-color: rgba(231, 231, 231, 0.7);
+            animation: ripple 600ms linear;
+            width: 0;
+            height: 0;
+            /* 无法点击 */
+            pointer-events: none;
+        }
+        
+        @keyframes ripple {
+            from {
+                width: 0;
+                height: 0;
+                opacity: 1;
+            }
+            to {
+                width: 500px;
+                height: 500px;
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <button>Button</button>
+</body>
+<script>
+    // 添加按钮落下事件
+    document.querySelector('button').addEventListener('mousedown', function(e) {
+        // 创建新元素
+        var nspan = document.createElement('span');
+        // 将新元素添加到按钮里
+        this.append(nspan);
+        // 获取点击位置，来确定span位置
+        nspan.style.top = e.offsetY + 'px';
+        nspan.style.left = e.offsetX + 'px';
+    });
+</script>
+
+</html>
