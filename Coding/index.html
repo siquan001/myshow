@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在线编辑HTML</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/codemirror/6.65.7/codemirror.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .textareas,
+        iframe {
+            display: block;
+            float: left;
+            width: 50%;
+            height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .textareas>p {
+            width: 200px;
+            height: 30px;
+            line-height: 30px;
+            border-radius: 10px 10px 0 0;
+            background-color: #aaa;
+            color: #fff;
+            text-indent: 1.5em;
+        }
+
+        .textareas>iframe {
+            width: 100%;
+            height: calc(100% - 90px);
+            float: none;
+            transition: height .3s;
+            border-top: #000 solid 1px;
+        }
+    </style>
+</head>
+
+<body style="opacity:0;">
+    <div class="textareas">
+        <p for="h">HTML</p>
+        <iframe src="./codemirrors/html.html" id="ch" frameborder="0"></iframe>
+        <p for="c">CSS</p>
+        <iframe src="./codemirrors/css.html" id="cc" frameborder="0"></iframe>
+        <p for="j">JS</p>
+        <iframe src="./codemirrors/js.html" id="cj" frameborder="0"></iframe>
+    </div>
+    <iframe id="f"></iframe>
+</body>
+
+</html>
+
+<script>
+    var h = '\x3C!DOCTYPE html>\n\x3Chtml lang="en">\n\x3Chead>\n    \x3Cmeta charset="UTF-8">\n    \x3Cmeta http-equiv="X-UA-Compatible" content="IE=edge">\n    \x3Cmeta name="viewport" content="width=device-width, initial-scale=1.0">\n    \x3Ctitle>Document</title>\n</head>\n\x3Cbody>\n    <h1>Hello,World!</h1>\n\x3C/body>\n\x3C/html>';
+    var f=document.getElementById('f');
+    function throwto() {
+        var a = document.getElementById('ch').contentWindow.get + '\n<script>' + document.getElementById('cj').contentWindow.get.replace('\n', '\n\t') + '\n\x3C/script>';
+        a = a.replace('</head>', '\t<style>\n' + document.getElementById('cc').contentWindow.get.replace('\n', '\n\t\t') + '\t</style>\n</head>');
+        a = a.replace(/%/g, '%25')
+            .replace(/&/g, '%26')
+            .replace(/#/g, '%23')
+            .replace(/"/g, '%22')
+            .replace(/'/g, '%27');
+        var dataURI = 'data:text/html;charset=UTF-8,' + a;
+        f.src = dataURI;
+    }
+    window.onload = function () {
+        document.body.style.opacity = '1';
+        document.querySelectorAll('p[for]').forEach(function (ele) {
+            ele.onclick = function () {
+                var id = this.getAttribute('for');
+                document.querySelectorAll('.textareas iframe').forEach(function (e) { e.style.height='0px' });
+                document.getElementById('c' + id).removeAttribute('style');
+            }
+            if (ele.getAttribute('for') == 'h') {
+                ele.click();
+            }
+        })
+        throwto();
+    }
+
+</script>
