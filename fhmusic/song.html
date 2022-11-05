@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<script>
+    var url = decodeURI(window.location.href);
+</script>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>&#27468;&#26354;</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.8.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <div class="topbar">
+        <div class="powered">
+            Powered By
+            <a href="http://www.kugou.com/?targetat=Fh&#38899;&#20048;" target="_blank" rel="noopener noreferrer">&#37239;&#29399;&#38899;&#20048;</a>
+        </div>
+    </div>
+    <div class="body">
+        <div class="box">
+            <div class="search">
+                <input type="text" id='search_input'><button id='search_start' class='bi bi-search'></button>
+            </div>
+            <div class="bg">
+                <div class="left">
+                    <img src="" alt="1234" class="img_bg">
+                    <div class="download bi bi-download" onclick='download();'>&#19979;&#36733;&#36825;&#39318;&#38899;&#20048;</div>
+                </div>
+                <div class="right">
+                    <h1 class="title"></h1>
+                    <div class="message">
+                        <p class="singer">&#27468;&#25163;&#65306;<span></span></p>
+                        <p class="zhuanj">&#19987;&#36753;&#65306;<span></span></p>
+                    </div>
+                    <div class="gclist">
+                        <ul></ul>
+                    </div>
+                    <div class="downmini bi bi-download" onclick='download();'></div>
+                </div>
+            </div>
+            <div class="bar">
+                <img src="" alt="1234" class="img_bg">
+                <div class="cz">
+                    <input type="range" name="" id="timerange" min='0' max='100' value="0">
+                    <div class="czs">
+                        <div class="toggleplay bi bi-pause"></div>
+                        <div class="time"><span class="z">00:00</span>/<span class="s">00:00</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="left">
+            <a href="#" target="_blank" rel="noopener noreferrer">&#29992;&#25143;&#21327;&#35758;</a>
+            <a href="#" target="_blank" rel="noopener noreferrer">&#38544;&#31169;&#26465;&#27454;</a>
+            <a href="#" target="_blank" rel="noopener noreferrer">&#20851;&#20110;&#25105;&#20204;</a>
+        </div>
+        <div class="right">
+            &#26412;&#31449;&#24050;&#31283;&#23450;&#36816;&#34892; -1 &#22825;
+        </div>
+    </div>
+    <audio src="" autoplay id='audio'></audio>
+    <a href=""></a>
+</body>
+<script>
+    var aaa = document.querySelectorAll('a');
+    aaa[aaa.length - 1].remove();
+    var audio = document.getElementById('audio');
+    document.getElementById('search_start').onclick = function() {
+        var a = document.getElementById('search_input').value;
+        if (a) {
+            window.open('search.html?s=' + a);
+        }
+    };
+    fn();
+    var oLRC = {
+        ti: "", //&#27468;&#26354;&#21517;
+        ar: "", //&#28436;&#21809;&#32773;
+        al: "", //&#19987;&#36753;&#21517;
+        by: "", //&#27468;&#35789;&#21046;&#20316;&#20154;
+        offset: 0, //&#26102;&#38388;&#34917;&#20607;&#20540;&#65292;&#21333;&#20301;&#27627;&#31186;&#65292;&#29992;&#20110;&#35843;&#25972;&#27468;&#35789;&#25972;&#20307;&#20301;&#32622;
+        ms: [] //&#27468;&#35789;&#25968;&#32452;{t:&#26102;&#38388;,c:&#27468;&#35789;}
+    };
+    var ys = 73;
+    var nowc = 0;
+
+    function fn() {
+        var url = window.location.href;
+        if (url.indexOf('?hash=') == -1) {
+            window.location.href = 'index.html';
+        }
+        var hash;
+        var auldm;
+        if (url.indexOf('?hash=') != -1) {
+            hash = url.substring(url.indexOf('?hash=') + 6, url.indexOf('&'))
+        };
+        if (url.indexOf('&album_id=') != -1) {
+            auldm = url.substring(url.indexOf('&album_id=') + 10, url.length);
+        };
+        // console.log(hash, auldm, url.indexOf('&author_id='), url.substring(url.indexOf('&author_id=') + 11, url.length), url.indexOf('&author='));
+        var longtime = new Date().getTime();
+        var script = document.createElement('script');
+        script.src = `https://wwwapi.kugou.com/yy/index.php?r=play/getdata&callback=getData&hash=${hash.toUpperCase()}&dfid=2mScsJ16ucV81qLdzD238ELf&appid=1014&mid=1b211caf58cd1e1fdfea5a4657cc21f5&platid=4&album_id=${auldm}&_=${longtime}`;
+        document.querySelector('body').append(script);
+
+    }
+
+    function getData(a) {
+        console.log(a);
+        audio.setAttribute('src', a.data.play_url);
+        document.querySelector('.bg .right h1.title').innerHTML = a.data.song_name;
+        document.title = a.data.audio_name;
+        document.querySelector('.bg .right .message .zhuanj span').innerHTML += a.data.album_name;
+        var author_b = '';
+        for (var i = 0; i < a.data.authors.length; i++) {
+            if (i == a.data.authors.length - 1) {
+                author_b += a.data.authors[i].author_name
+            } else {
+                author_b += a.data.authors[i].author_name + '&#12289;';
+            }
+        }
+        document.querySelector('.bg .right .message .singer span').innerHTML += author_b;
+        document.querySelectorAll('.img_bg').forEach(function(e) {
+            e.src = a.data.img
+        });
+        createLrcObj(a.data.lyrics);
+        console.log(oLRC);
+        for (var i = 0; i < oLRC.ms.length; i++) {
+            document.querySelector('.bg .right .gclist ul').innerHTML += '<li>' + oLRC.ms[i].c + '</li>';
+        }
+        document.querySelectorAll('.bg .right .gclist ul li')[0].classList.add('onc');
+        if (a.data.has_privilege && a.data.privilege == 10) {
+            alert('\u7531\u4e8e\u8be5\u6b4c\u66f2\u5728\u9177\u72d7\u97f3\u4e50\u5e73\u53f0\u4e0a\u4e3a\u4ed8\u8d39\u6536\u542c\uff0c\u53ea\u80fd\u8bd5\u542c1\u5206\u949f\uff0c\u6240\u4ee5\u5728\u8fd9\u91cc\uff0c\u6211\u4eec\u4e5f\u53ea\u80fd\u83b7\u53d6\u5230\u4e00\u5206\u949f\u7684\u97f3\u4e50\uff0c\u5982\u679c\u60f3\u542c\u6574\u9996\u6b4c\uff0c\u8bf7\u4f60\u4e0b\u8f7d\u9177\u72d7\u97f3\u4e50APP\u3002')
+        }
+
+    }
+
+    function download() {
+        window.open(audio.getAttribute('src'));
+    }
+    document.querySelector('.toggleplay').onclick = function() {
+        var isplay = !audio.paused;
+        if (isplay) {
+            audio.pause();
+            this.classList.add('bi-play');
+            this.classList.remove('bi-pause');
+        } else {
+            this.classList.remove('bi-play');
+            this.classList.add('bi-pause');
+            audio.play();
+        }
+    };
+    updateTime();
+
+    function updateTime() {
+        setTimeout(() => {
+            var time = parseInt(audio.currentTime);
+            var stime = queryTime(time);
+            var mstime = audio.currentTime;
+            document.querySelector('div.time span.z').innerHTML = stime;
+            document.querySelector('#timerange').value = time / audio.duration * 100;
+            var nowa = 0;
+            for (var i = 0; i < oLRC.ms.length; i++) {
+                try {
+                    if (parseFloat(oLRC.ms[i].t) <= mstime && parseFloat(oLRC.ms[i + 1].t) > mstime) {
+                        nowa = i;
+                        break;
+                    }
+                } catch (error) {
+                    if (parseFloat(oLRC.ms[i].t) <= mstime) {
+                        nowa = i;
+                        break;
+                    }
+                }
+            }
+            nowc = nowa;
+            var pds = ys - nowc * 41;
+            document.querySelectorAll('.bg .right .gclist ul li').forEach(function(e) {
+                e.classList.remove('onc')
+            });
+            document.querySelectorAll('.bg .right .gclist ul li')[nowc].classList.add('onc');
+            document.querySelectorAll('.bg .right .gclist ul li').forEach(function(e) {
+                e.style.top = pds + 'px'
+            });
+            updateTime();
+        }, 1000);
+    }
+
+    function queryTime(a) {
+        var s = parseInt(a % 60);
+        m = parseInt(a / 60);
+        if (s < 10) {
+            s = '0' + s;
+        };
+        if (m < 10) {
+            m = '0' + m;
+        }
+        return m + ':' + s;
+    }
+
+
+    audio.oncanplay = function() {
+        a = queryTime(audio.duration);
+        document.querySelector('div.time span.s').innerHTML = a;
+    }
+    document.querySelector('#timerange').onchange = function() {
+        audio.currentTime = (this.value / 100) * document.getElementById('audio').duration;
+    };
+    audio.onended = function() {
+        document.querySelector('.toggleplay').classList.remove('bi-pause');
+        document.querySelector('.toggleplay').classList.add('bi-play');
+        audio.currentTime = 0;
+    }
+
+
+    function createLrcObj(lrc) {
+        if (lrc.length == 0) return;
+        var lrcs = lrc.split('\n');
+        for (var i in lrcs) {
+            lrcs[i] = lrcs[i].replace(/(^\s*)|(\s*$)/g, "");
+            var t = lrcs[i].substring(lrcs[i].indexOf("[") + 1, lrcs[i].indexOf("]"));
+            var s = t.split(":");
+            if (isNaN(parseInt(s[0]))) {
+                for (var i in oLRC) {
+                    if (i != "ms" && i == s[0].toLowerCase()) {
+                        oLRC[i] = s[1];
+                    }
+                }
+            } else { //&#26159;&#25968;&#20540;
+                var arr = lrcs[i].match(/\[(\d+:.+?)\]/g);
+                var start = 0;
+                for (var k in arr) {
+                    start += arr[k].length;
+                }
+                var content = lrcs[i].substring(start);
+                for (var k in arr) {
+                    var t = arr[k].substring(1, arr[k].length - 1);
+                    var s = t.split(":");
+                    oLRC.ms.push({
+                        t: (parseFloat(s[0]) * 60 + parseFloat(s[1])).toFixed(3),
+                        c: content
+                    });
+                }
+            }
+        }
+        oLRC.ms.sort(function(a, b) { //&#25353;&#26102;&#38388;&#39034;&#24207;&#25490;&#24207;
+            return a.t - b.t;
+        });
+        /*
+        for(var i in oLRC){ //&#26597;&#30475;&#35299;&#26512;&#32467;&#26524;
+            console.log(i,":",oLRC[i]);
+        }*/
+    }
+</script>
+
+</html>
+<!-- https://wwwapi.kugou.com/yy/index.php?r=play/getdata&callback=getData&hash=7d92a8b57b3871960f7ed4e081ee575b&dfid=3x7tnx0ml6Ty0CA2IZ4TPrkU&appid=1014&mid=04f5284cfe29a3cf5bc2b7a66a75f5c9&platid=4&album_id=22436628&_=1658544225224 https://wwwapi.kugou.com/yy/index.php?r=play/getdata&callback=getData&hash=7d92a8b57b3871960f7ed4e081ee575b&dfid=3x7tnx0ml6Ty0CA2IZ4TPrkU&appid=1014&mid=04f5284cfe29a3cf5bc2b7a66a75f5c9&platid=4&album_id=22436628&_=1658544370196
+https://wwwapi.kugou.com/yy/index.php?r=play/getdata&callback=getData&hash=7D92A8B57B3871960F7ED4E081EE575B&dfid=2mScsJ16ucV81qLdzD238ELf&appid=1014&mid=1b211caf58cd1e1fdfea5a4657cc21f5&platid=4&album_id=22436628&_=1658544548551 -->

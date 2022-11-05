@@ -1,0 +1,406 @@
+@import url(https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&family=Material+Icons);
+@import url(https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css);
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    width: 100%;
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.load {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    opacity: 1;
+    transition: all .3s;
+    z-index: 999;
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+}
+
+.load p.logo {
+    font-size: 80px;
+    font-family: 'ZCOOL XiaoWei';
+    position: relative;
+    font-weight: 600;
+    color: transparent;
+    background: #000;
+    -webkit-background-clip: text;
+    clip-path: circle(80px at 0% 50%);
+    animation: load1 2s ease-in-out infinite;
+}
+
+.load span {
+    font-family: 'Material Icons';
+    font-size: 130px;
+    position: absolute;
+    top: calc(50% - 70px);
+    left: calc(50% - 140px);
+    color: rgb(110, 4, 4);
+    animation: load2 2s ease-in-out infinite;
+}
+
+.main {
+    min-width: 950px;
+}
+
+.main>* {
+    box-sizing: border-box;
+    padding: 0 100px;
+}
+
+.main .topbar {
+    width: 100%;
+    height: 60px;
+    background-color: blue;
+}
+
+.main .topbar p.logo {
+    float: left;
+    font-size: 30px;
+    font-family: 'ZCOOL Xiaowei';
+    line-height: 60px;
+    margin: 0 20px;
+    color: #fff;
+    font-weight: 500;
+}
+
+.main .topbar .search {
+    float: left;
+    width: 250px;
+    height: 30px;
+    margin: 15px 25px;
+    background-color: rgb(0, 183, 255);
+    border-radius: 15px;
+}
+
+.main .topbar .search input {
+    display: block;
+    float: left;
+    background-color: transparent;
+    color: #fff;
+    border: 0;
+    outline: 0;
+    width: 220px;
+    height: 30px;
+    box-sizing: border-box;
+    padding: 0 10px;
+}
+
+.main .topbar .search input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.main .topbar .search button {
+    border: 0;
+    outline: 0;
+    background-color: transparent;
+    width: 30px;
+    height: 30px;
+    color: #fff;
+}
+
+.main .topbar ul {
+    float: right;
+}
+
+.main .topbar ul li {
+    float: left;
+    line-height: 60px;
+    width: 100px;
+    font-weight: 600;
+}
+
+.main .topbar ul li a {
+    color: #fff!important;
+}
+
+.main .seta .tjsong {
+    width: 60%;
+    float: left;
+}
+
+.main .seta .newsong {
+    width: 40%;
+    float: left;
+}
+
+.main .tjsong ul li {
+    width: 200px;
+    height: 230px;
+    margin: 5px;
+    float: left;
+}
+
+.main .tjsong ul li a img {
+    width: 170px;
+    margin: 15px;
+    display: block;
+    border-radius: 8px;
+}
+
+.main .tjsong ul li {
+    position: relative;
+}
+
+.main .tjsong ul li p {
+    text-align: center;
+    line-height: 30px;
+}
+
+.main h1 {
+    font-size: 30px;
+    font-weight: 400;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.main .tjsong ul li a .play_img {
+    background-image: url(https://www.kugou.com/common/images/icon_play_white.png);
+    width: 170px;
+    height: 170px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 15px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    opacity: 0;
+    transition: all .3s;
+}
+
+.main .tjsong ul li a:hover .play_img {
+    opacity: 1;
+}
+
+.main .tjsong ul li a:hover img {
+    transform: scale(1.02);
+}
+
+.main .tjsong ul li a img {
+    transition: all .3s;
+}
+
+.main .newsong ol li {
+    width: 100%;
+    height: 40px;
+    box-sizing: border-box;
+    margin: 5px 0;
+    line-height: 40px;
+    font-size: 20px;
+    margin-left: 40px;
+    list-style-type: decimal;
+    padding-left: 20px;
+}
+
+.main .newsong ol li a {
+    color: #000;
+}
+
+.main .newsong ol li a:hover {
+    color: blue;
+}
+
+a {
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
+}
+
+.main .yy {
+    width: 100%;
+    min-width: 950px;
+    background-color: grey;
+    height: calc(100vh - 60px);
+}
+
+.main .yy .left {
+    float: left;
+    width: 40%;
+}
+
+.main .yy .left .img {
+    width: 200px;
+    height: 200px;
+    padding: 25px 0;
+    margin: 0 auto;
+}
+
+.main .yy .left .img img {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.main .yy .left .download {
+    width: 250px;
+    height: 50px;
+    border-radius: 25px;
+    border: #fff solid 2px;
+    color: #fff;
+    margin: 20px auto;
+    text-align: center;
+    line-height: 50px;
+    user-select: none;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.main .yy .left .download:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.main .yy .right {
+    float: left;
+    width: 60%;
+    color: #fff;
+}
+
+.main .yy .right h2 {
+    font-size: 25px;
+    font-weight: 400;
+    margin: 20px;
+}
+
+.main .yy .right .message {
+    overflow: hidden;
+}
+
+.main .yy .right .message p {
+    float: left;
+    width: 40%;
+}
+
+.main .yy .right .message p span {
+    color: aqua;
+}
+
+.main .yy .right ul {
+    width: 50%;
+    height: 300px;
+    overflow: hidden;
+    position: relative;
+    margin-top: 30px;
+}
+
+.main .yy .right ul li {
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+    position: relative;
+    top: 123px;
+    transition: all .3s;
+}
+
+.main .yy .right ul li.onc {
+    color: aqua;
+}
+
+.main .yy .musicbar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    min-width: 950px;
+    background-color: #333;
+    height: 80px;
+}
+
+.main .musicbar>p {
+    font-size: 40px;
+    color: #fff;
+    float: left;
+    line-height: 80px;
+    width: 60px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.main .musicbar>p:hover {
+    text-shadow: 0 0 5px #fff;
+}
+
+.main .musicbar .kzs {
+    float: left;
+    color: #fff;
+    margin: 0 50px;
+    width: 500px;
+    height: 80px;
+    margin-left: calc(10% + 50px);
+}
+
+.main .musicbar .kzs p {
+    line-height: 40px;
+}
+
+.main .musicbar .kzs p.time {
+    float: right;
+}
+
+.main .musicbar .kzs input {
+    width: 100%;
+    /* height: 40px; */
+}
+
+.main .musicbar p.bi-volume-up {
+    float: right;
+}
+
+.main .musicbar .sound {
+    width: 200px;
+    height: 50px;
+    background-color: #333;
+    position: absolute;
+    top: -55px;
+    right: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.main .musicbar .sound input {
+    width: 175px;
+}
+
+@keyframes load1 {
+    0% {
+        clip-path: circle(80px at 0% 50%);
+    }
+    50% {
+        clip-path: circle(80px at 100% 50%);
+    }
+    100% {
+        clip-path: circle(80px at 0% 50%);
+    }
+}
+
+@keyframes load2 {
+    0% {
+        left: calc(50% - 140px);
+    }
+    50% {
+        left: calc(50% + 20px);
+    }
+    100% {
+        left: calc(50% - 140px);
+    }
+}

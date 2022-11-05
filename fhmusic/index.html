@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>&#25628;&#32034;</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.8.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <div class="topbar">
+        <div class="powered">
+            Powered By
+            <a href="http://www.kugou.com/?targetat=Fh&#38899;&#20048;" target="_blank" rel="noopener noreferrer">&#37239;&#29399;&#38899;&#20048;</a>
+        </div>
+    </div>
+    <div class="body">
+        <div class="box">
+			<div class="logo">Fh音乐</div>
+            <div class="search">
+                <input type="text" id='search_input'><button id='search_start' class='bi bi-search'></button>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="left">
+            <a href="#" target="_blank" rel="noopener noreferrer">&#29992;&#25143;&#21327;&#35758;</a>
+            <a href="#" target="_blank" rel="noopener noreferrer">&#38544;&#31169;&#26465;&#27454;</a>
+            <a href="#" target="_blank" rel="noopener noreferrer">&#20851;&#20110;&#25105;&#20204;</a>
+        </div>
+        <div class="right">
+            &#26412;&#31449;&#24050;&#31283;&#23450;&#36816;&#34892; -1 &#22825;
+        </div>
+    </div>
+    <a href=""></a>
+</body>
+<script>
+    document.getElementById('search_input').onkeydown=function(e){
+		if(e.keyCode==13){
+			e.preventDefault();
+			location.href='./search.html?s='+this.value;
+		}
+	}
+	document.getElementById('search_start').onclick=function(){
+		location.href='./search.html?s='+document.getElementById('search_input').value;
+	}
+</script>
+
+</html>

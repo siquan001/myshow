@@ -1,0 +1,325 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    list-style: none;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 300;
+    background-color: #fefefe;
+    position: relative;
+}
+
+.body {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ntcopy {
+    user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    -moz-user-select: none;
+}
+
+.box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+}
+
+.box .logo {
+    font-size: 50px;
+    color: #00e1ff;
+    font-weight: 600;
+    text-shadow: 0 1px 5px #0003;
+}
+
+.box .search {
+    width: calc(100% - 40px);
+    height: 40px;
+    max-width: 500px;
+    border: #00e1ff solid 1px;
+    margin: 20px 0;
+}
+
+.box .search input {
+    width: calc(100% - 60px);
+    display: block;
+    border: none;
+    outline: none;
+    line-height: 40px;
+    font-size: 24px;
+    float: left;
+}
+
+.box .search button {
+    float: left;
+    width: 60px;
+    height: 40px;
+    border: 0;
+    outline: 0;
+    font-size: 20px;
+    background-color: #00e1ff;
+    color: #fff;
+}
+
+.topbar {
+    font-size: 14px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: grey;
+}
+
+.topbar a,
+.footer a {
+    color: grey!important;
+}
+
+.footer {
+    font-size: 14px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    font-weight: 500;
+    color: grey;
+}
+
+.footer .left {
+    float: left;
+}
+
+.footer .right {
+    float: right;
+}
+
+.songlist {
+    width: calc(100% - 40px);
+    max-width: 500px;
+}
+
+.songlist li {
+    width: 100%;
+    line-height: 40px;
+    box-sizing: border-box;
+    border: #00e1ff solid 1px;
+    border-bottom: 0;
+}
+
+.songlist li:last-child {
+    border-bottom: #00e1ff solid 1px;
+}
+
+.songlist li span.dot {
+    display: inline-block;
+    width: 50px;
+    text-align: center;
+}
+
+.songlist li:hover {
+    color: #00e1ff;
+    background-color: #f1f1fe;
+    transition: all .3s;
+    cursor: pointer;
+}
+
+.box>.bg {
+    width: 100%;
+    max-width: 700px;
+    height: 60vh;
+    box-sizing: border-box;
+    border: #00e1ff solid 1px;
+}
+
+.box>.bar {
+    width: 100%;
+    margin: 20px 0;
+    max-width: 700px;
+    height: 80px;
+    box-sizing: border-box;
+    border: #00e1ff solid 1px;
+}
+
+.box>.bg .left {
+    width: 30%;
+    float: left;
+    height: 100%;
+}
+
+.box>.bg .right {
+    width: 70%;
+    float: left;
+    height: 100%;
+    position: relative;
+}
+
+.box>.bg .right .downmini {
+    width: 40px;
+    height: 40px;
+    border: #000 solid 1px;
+    font-size: 30px;
+    line-height: 40px;
+    text-align: center;
+    position: absolute;
+    bottom: 30px;
+    right: 0;
+    display: none;
+}
+
+.box>.bg .left .img_bg {
+    display: block;
+    width: calc(100% - 30px);
+    margin: 15px;
+    border: #000 solid 1px;
+}
+
+.box>.bg .left .download {
+    width: calc(100% - 40px);
+    margin: 20px;
+    margin-top: 100px;
+    font-size: 20px;
+    line-height: 30px;
+    border-radius: 30px;
+    border: #000 solid 2px;
+    font-weight: 500;
+    text-align: center;
+    cursor: pointer;
+}
+
+.box>.bg .right h1 {
+    line-height: 40px;
+    font-size: 30px;
+    text-align: center;
+    width: 70%;
+}
+
+.box>.bg .right .message {
+    overflow: hidden;
+    height: 60px;
+}
+
+.box>.bg .right .message p {
+    width: 50%;
+    float: left;
+    line-height: 30px;
+}
+
+.box>.bg .right .gclist {
+    width: 60%;
+    height: calc(100% - 100px);
+    font-size: 16px;
+    font-weight: 400;
+    overflow: hidden;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.box>.bg .right .gclist li {
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+    position: relative;
+    top: 73px;
+    transition: all .3s;
+}
+
+.box>.bg .right .gclist li.onc {
+    color: #00e1ff;
+}
+
+@media(max-width:690px) {
+    .box>.bg .right h1 {
+        width: 100%;
+        font-size: 24px;
+    }
+    .box>.bg .right .gclist {
+        width: 100%;
+    }
+}
+
+@media(max-width:600px) {
+    .box>.bg .left {
+        display: none;
+    }
+    .box>.bg .right {
+        width: 100%;
+    }
+    .downmini {
+        display: block!important;
+        background-color: #fff;
+    }
+}
+
+
+/*.main .yy .right ul {
+    width: 50%;
+    height: 300px;
+    overflow: hidden;
+    position: relative;
+    margin-top: 30px;
+}
+
+.main .yy .right ul li {
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+    position: relative;
+    top: 123px;
+    transition: all .3s;
+}*/
+
+.main .yy .right ul li.onc {
+    color: aqua;
+}
+
+.box>.bar .img_bg {
+    display: block;
+    width: 70px;
+    height: 70px;
+    margin: 5px;
+    float: left;
+}
+
+.box>.bar .cz {
+    width: calc(100% - 80px);
+    height: 80px;
+    float: left;
+}
+
+.box>.bar .cz input {
+    width: 100%;
+    height: 30px;
+}
+
+.box>.bar .cz .czs div.bi {
+    font-size: 30px;
+    color: #000;
+    float: left;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+}
+
+.box>.bar .cz .czs div.bi:hover {
+    color: #00e1ff
+}
+
+.box>.bar .cz .czs div.time {
+    line-height: 50px;
+    font-size: 20px;
+    font-weight: 400;
+    float: right;
+    margin-right: 20px;
+}

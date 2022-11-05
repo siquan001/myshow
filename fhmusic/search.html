@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<script>
+    var url = decodeURI(window.location.href);
+    if (url.indexOf('?s=') == -1 || url.substring(url.indexOf('?s=') + 3, url.length).trim() == "") {
+        window.location.href = 'index.html';
+    }
+</script>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>&#25628;&#32034;</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.8.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <div class="topbar">
+        <div class="powered">
+            Powered By
+            <a href="http://www.kugou.com/?targetat=Fh&#38899;&#20048;" target="_blank" rel="noopener noreferrer">&#37239;&#29399;&#38899;&#20048;</a>
+        </div>
+    </div>
+    <div class="body">
+        <div class="box">
+            <div class="search">
+                <input type="text" id='search_input'><button id='search_start' class='bi bi-search'></button>
+            </div>
+            <div class="songlist">
+                <ul>
+                    <div class="bg">
+                        <div class='mspin'>
+                            <div>
+                                <div></div>
+                            </div>
+                        </div>
+                    </div>
+                    <style>
+                        .bg {
+                            width: 100%;
+                            position: relative;
+                        }
+                        
+                        .mspin {
+                            width: 36px;
+                            height: 36px;
+                            overflow: hidden;
+                            -webkit-animation: mspin-rotate 1568.63ms infinite linear;
+                            -moz-animation: mspin-rotate 1568.63ms infinite linear;
+                            animation: mspin-rotate 1568.63ms infinite linear;
+                            transform: scale(1.5) translateX(-50%);
+                            position: absolute;
+                            left: 50%;
+                        }
+                        
+                        .mspin>div {
+                            -webkit-animation: mspin-revrot 5332ms infinite steps(4);
+                            -moz-animation: mspin-revrot 5332ms infinite steps(4);
+                            animation: mspin-revrot 5332ms infinite steps(4);
+                        }
+                        
+                        .mspin>div>div {
+                            background-image: url(https://www.gstatic.com/images/icons/material/anim/mspin/mspin_googcolor_medium.svg);
+                            background-size: 100%;
+                            width: 11664px;
+                            height: 36px;
+                            -webkit-animation: mspin-medium-film 5332ms infinite steps(324);
+                            -moz-animation: mspin-medium-film 5332ms infinite steps(324);
+                            animation: mspin-medium-film 5332ms infinite steps(324);
+                        }
+                        
+                        @keyframes mspin-rotate {
+                            0% {
+                                transform: rotate(0deg) scale(1.5);
+                            }
+                            100% {
+                                transform: rotate(360deg) scale(1.5);
+                            }
+                        }
+                        
+                        @keyframes mspin-revrot {
+                            0% {
+                                transform: rotate(0deg);
+                            }
+                            100% {
+                                transform: rotate(-360deg);
+                            }
+                        }
+                        
+                        @keyframes mspin-medium-film {
+                            0% {
+                                transform: translateX(0);
+                            }
+                            100% {
+                                transform: translateX(-11664px);
+                            }
+                        }
+                    </style>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="left">
+            <a href="" target="_blank" rel="noopener noreferrer">&#29992;&#25143;&#21327;&#35758;</a>
+            <a href="" target="_blank" rel="noopener noreferrer">&#38544;&#31169;&#26465;&#27454;</a>
+            <a href="" target="_blank" rel="noopener noreferrer">&#20851;&#20110;&#25105;&#20204;</a>
+        </div>
+        <div class="right">
+            &#26412;&#31449;&#24050;&#31283;&#23450;&#36816;&#34892; -1 &#22825;
+        </div>
+    </div>
+    <a href=""></a>
+</body>
+<script>
+    var load = "<div class='bg'><div class='mspin'><div><div></div></div></div></div><style>.bg{width:100%;position:relative}.mspin{width:36px;height:36px;overflow:hidden;-webkit-animation:mspin-rotate 1568.63ms infinite linear;-moz-animation:mspin-rotate 1568.63ms infinite linear;animation:mspin-rotate 1568.63ms infinite linear;transform:scale(1.5)translateX(-50%);position:absolute;left:50%}.mspin>div{-webkit-animation:mspin-revrot 5332ms infinite steps(4);-moz-animation:mspin-revrot 5332ms infinite steps(4);animation:mspin-revrot 5332ms infinite steps(4)}.mspin>div>div{background-image:url(https://www.gstatic.com/images/icons/material/anim/mspin/mspin_googcolor_medium.svg);background-size:100%;width:11664px;height:36px;-webkit-animation:mspin-medium-film 5332ms infinite steps(324);-moz-animation:mspin-medium-film 5332ms infinite steps(324);animation:mspin-medium-film 5332ms infinite steps(324)}@keyframes mspin-rotate{0%{transform:rotate(0deg)scale(1.5)}100%{transform:rotate(360deg)scale(1.5)}}@keyframes mspin-revrot{0%{transform:rotate(0deg)}100%{transform:rotate(-360deg)}}@keyframes mspin-medium-film{0%{transform:translateX(0)}100%{transform:translateX(-11664px)}}</style>";
+    var startTime = new Date().getTime();
+    var his = 0;
+    var his2 = 0;
+    var his3 = -1;
+    var hlist = '';
+    var aaa = document.querySelectorAll('a');
+    aaa[aaa.length - 1].remove();
+    document.getElementById('search_input').value = url.substring(url.indexOf('?s=') + 3, url.length).trim();
+    document.querySelector('title').innerHTML = '&#25628;&#32034; - ' + url.substring(url.indexOf('?s=') + 3, url.length).trim();
+
+    function callback123(a) {
+        for (var i = 0; i < a.data.info.length; i++) {
+            hlist += "<li data-hash='" + a.data.info[i].hash + "' data-album-id='" + a.data.info[i].album_id + "'>" +
+                "<span class='dot'>" + (i + his + 1) + "</span>" +
+                "<span class='name'>" + a.data.info[i].filename + "</span>" +
+                "</li>";
+        }
+        his = a.data.info.length + his;
+
+        his2++;
+        if (his2 >= his3 + 3 || a.data.info.length == 0) {
+            document.querySelector('.songlist ul').innerHTML = hlist;
+            if (hlist.trim() == '') {
+                document.querySelector('.songlist ul').innerHTML = '&#20160;&#20040;&#20063;&#27809;&#25214;&#21040;';
+            }
+            document.querySelectorAll('.songlist li').forEach(e => {
+                e.onclick = function() {
+                    window.open('song.html?hash=' + this.getAttribute('data-hash') + '&album_id=' + this.getAttribute('data-album-id'));
+                };
+            });
+            var endTime = new Date().getTime() - startTime;
+            console.log('Time:' + endTime + 'ms');
+            his3 = his2 - 1;
+        }
+    }
+    document.getElementById('search_start').onclick = function() {
+        var a = document.getElementById('search_input').value;
+        if (a) {
+            window.location.href = 'search.html?s=' + a;
+        }
+    };
+    document.getElementById('search_input').onkeydown = function(e) {
+        if (e.key == 'Enter') {
+            var a = this.value;
+            if (a) {
+                window.location.href = 'search.html?s=' + a;
+            }
+        }
+
+    }
+    for (var i = 1; i < 3; i++) {
+        gets(i);
+    }
+    window.onscroll = function() {
+        var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        var windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+        var scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+        if (scrollTop + windowHeight >= scrollHeight) { //&#32771;&#34385;&#21040;&#28378;&#21160;&#30340;&#20301;&#32622;&#19968;&#33324;&#21487;&#33021;&#20250;&#22823;&#20110;&#19968;&#28857;&#21487;&#28378;&#21160;&#30340;&#39640;&#24230;&#65292;&#25152;&#20197;&#36825;&#37324;&#19981;&#33021;&#29992;&#31561;&#20110;
+            for (var i = his2; i < his2 + 3; i++) {
+                startTime = new Date().getTime();
+                document.querySelector('.songlist ul').innerHTML += load;
+                gets(i);
+            }
+        }
+    }
+
+    function gets(i) {
+        if (his2 == i - 1) {
+            var sc = document.createElement('script');
+            var str = "https://mobiles.kugou.com/api/v3/search/song?format=jsonp&keyword=" + url.substring(url.indexOf('?s=') + 3, url.length).trim() + "&page=" + i + "&pagesize=30&showtype=1&callback=callback123";
+            sc.src = str;
+            document.body.append(sc);
+        } else {
+            setTimeout(function() {
+                gets(i);
+            }, 10);
+        }
+    }
+</script>
+
+</html>
