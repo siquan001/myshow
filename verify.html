@@ -201,7 +201,7 @@
       var ImageData = block_ctx.getImageData(x, _y, blockWidth, blockWidth)
       block.width = blockWidth
       block_ctx.putImageData(ImageData, 0, _y)
-      document.querySelector(".loading").remove();
+      document.querySelector(".loading").style.display="none";
     }
 
     function draw(ctx, operation) {
@@ -297,6 +297,7 @@
     var rebtn= document.querySelector(".re-btn")
     var qubtn= document.querySelector(".qu-btn")
     rebtn.onclick=function(){
+      document.querySelector(".loading").style.display="flex";
       location.reload();
     }
     qubtn.onclick=function(){
