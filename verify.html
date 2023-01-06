@@ -257,6 +257,7 @@
           text.style.background="#f00"
           text.querySelector('.place').innerHTML="验证失败"
           setTimeout(function(){
+            document.querySelector(".loading").style.display="flex";
             location.reload();
           },1000)
         }
@@ -289,6 +290,7 @@
           text.style.background="#f00"
           text.querySelector('.place').innerHTML="验证失败"
           setTimeout(function(){
+            document.querySelector(".loading").style.display="flex";
             location.reload();
           },1000)
         }
