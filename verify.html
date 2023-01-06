@@ -216,8 +216,8 @@
           text.style.background="#0f0"
           text.querySelector('.place').innerHTML="验证成功";
           setTimeout(function(){
-            parent.window.verifyCallback(true);
-            frameElement.parentElement.remove();
+            parent.window.postMessage('success','*');
+            parent.window.postMessage('quit','*');
           }, 1000);
         }else{
           text.style.background="#f00"
@@ -244,8 +244,8 @@
           text.style.background="#0f0"
           text.querySelector('.place').innerHTML="验证成功";
           setTimeout(function(){
-            parent.window.verifyCallback(true);
-            frameElement.parentElement.remove();
+            parent.window.postMessage('success','*');
+            parent.window.postMessage('quit','*');
           }, 1000);
         }else{
           text.style.background="#f00"
@@ -262,7 +262,7 @@
       location.reload();
     }
     qubtn.onclick=function(){
-      frameElement.parentElement.remove();
+      parent.window.postMessage('quit','*');
     }
   </script>
 </body>
