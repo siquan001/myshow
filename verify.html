@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .embed {
+      width: 400px;
+      height: 270px;
+      border-radius: 20px;
+      background-color: #fff;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .embed #canvas {
+      background-color: #fff;
+    }
+
+    .embed #block {
+      position: absolute;
+      top: 0;
+      left: 20px;
+    }
+
+    .embed .text {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: calc(100% - 40px);
+      height: 30px;
+      margin: 9px 19px;
+      border: #999 solid 1px;
+      background-color: #eee;
+    }
+
+    .embed .text .place {
+      width: 100%;
+      text-align: center;
+      line-height: 30px;
+      color: #666;
+    }
+
+    .embed .text .tb {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: #fff;
+      width: 46px;
+      height: 26px;
+      text-align: center;
+      line-height: 26px;
+      user-select: none;
+      border: #999 solid 1px;
+      margin: 1px;
+      cursor: pointer;
+    }
+    
+    .re-btn,.qu-btn{
+      position: absolute;
+      top: 0;
+      right: 40px;
+      width: 40px;
+      height: 40px;
+      display:flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 66;
+      cursor: pointer;
+    }
+    .qu-btn{
+      right:0;
+    }
+    .loading{
+      width: 400px;
+      height: 270px;
+      position: absolute;
+      z-index: 1000;
+      top: 0;
+      left: 0;
+      background-color: #ccc;
+      display:flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 20px;
+    }
+    @media(max-width:390px){
+      .embed,.loading{
+        width:calc(400px / 1.3);
+      }
+    }
+    .loading span{
+      display: block;
+      width: 10px;
+      height: 10px;
+      margin: 0 10px;
+      border-radius: 50%;
+      background-color: #fff;
+      position: relative;
+      animation: loading 1s infinite;
+    }
+    .loading span:nth-child(2){
+      animation-delay: .2s;
+    }
+    .loading span:nth-child(3){
+      animation-delay: .4s;
+    }
+    @keyframes loading {
+      0%{
+        top:0;
+      }30%{
+        top:-20px;
+      }50%,100%{
+        top:0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="embed">
+    <canvas id="canvas" width="400" height="220"></canvas>
+    <canvas id="block" width="400" height="220"></canvas>
+    <div class="text">
+      <div class="tb">&gt;&gt;</div>
+      <div class="place">拖动滑块完成拼图</div>
+    </div>
+    <div class="re-btn">
+      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#fff" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+        <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+      </svg>
+    </div>
+    <div class="qu-btn">
+      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#fff" class="bi bi-x" viewBox="0 0 16 16">
+        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+      </svg>
+    </div>
+  </div>
+  <div class="loading">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <script>
+    var x,y,w = 42, r = 10, PI = Math.PI;
+    if(window.innerWidth<390){
+      x = Math.random() * 200 + 50, y = Math.random() * 180;
+    }else{
+      x = Math.random() * 250 + 50, y = Math.random() * 180;
+    }
+
+    var canvas = document.getElementById("canvas");
+    var block = document.getElementById("block");
+    var context = canvas.getContext('2d');
+    var block_ctx = block.getContext('2d');
+    var image = new Image;
+    image.src = "https://picsum.photos/400/220";
+    image.crossOrigin = "anonymous"
+    image.onload = function () {
+      context.drawImage(this, 0, 0, 400, 220);
+      block_ctx.drawImage(this, 0, 0, 400, 220);
+      var blockWidth = w + r * 2
+      var _y = y - r * 2 + 2 // 滑块实际的y坐标
+      var ImageData = block_ctx.getImageData(x, _y, blockWidth, blockWidth)
+      block.width = blockWidth
+      block_ctx.putImageData(ImageData, 0, _y)
+      document.querySelector(".loading").remove();
+    }
+
+    function draw(ctx, operation) {
+      ctx.beginPath()
+      ctx.moveTo(x, y)
+      ctx.lineTo(x + w / 2, y)
+      ctx.arc(x + w / 2, y - r + 2, r, 0, 2 * PI) //
+      ctx.lineTo(x + w / 2, y)
+      ctx.lineTo(x + w, y)
+      ctx.lineTo(x + w, y + w / 2)
+      ctx.arc(x + w + r - 2, y + w / 2, r, 0, 2 * PI) //
+      ctx.lineTo(x + w, y + w / 2)
+      ctx.lineTo(x + w, y + w)
+      ctx.lineTo(x, y + w)
+      ctx.lineTo(x, y)
+      ctx.fillStyle = '#fff'
+      ctx[operation]()
+      ctx.beginPath()
+      ctx.arc(x, y + w / 2, r, 1.5 * PI, 0.5 * PI) // 只需要画正方形内的半圆就行，方便背景图片的裁剪
+      ctx.globalCompositeOperation = "xor"
+      ctx.fill()
+    }
+    draw(context, 'fill')
+    draw(block_ctx, 'clip')
+
+    var tb= document.querySelector(".text .tb");
+    var text= document.querySelector(".text");
+    tb.onmousedown=function(e){
+      var x2=e.pageX,bx;
+      tb.onmousemove=function(e){
+        bx=e.pageX - x2;
+        if(bx<0) bx=0;
+        if(bx>310) bx=310;
+        tb.style.left=bx+'px';
+        block.style.left=bx+20+'px';
+      }
+      tb.onmouseup=function(e){
+        tb.onmousemove=null;
+        bx=bx+20;
+        if(bx<x+10&&bx>x-10){
+          text.style.background="#0f0"
+          text.querySelector('.place').innerHTML="验证成功";
+          setTimeout(function(){
+            parent.window.verifyCallback(true);
+            frameElement.parentElement.remove();
+          }, 1000);
+        }else{
+          text.style.background="#f00"
+          text.querySelector('.place').innerHTML="验证失败"
+          setTimeout(function(){
+            location.reload();
+          },1000)
+        }
+      }
+    }
+    tb.ontouchstart=function(e){
+      var x2=e.targetTouches[0].pageX,bx;
+      tb.ontouchmove=function(e){
+        bx=e.targetTouches[0].pageX - x2;
+        if(bx<0) bx=0;
+        if(bx>310) bx=310;
+        tb.style.left=bx+'px';
+        block.style.left=bx+20+'px';
+      }
+      tb.ontouchend=function(e){
+        tb.ontouchmove=null;
+        bx=bx+20;
+        if(bx<x+10&&bx>x-10){
+          text.style.background="#0f0"
+          text.querySelector('.place').innerHTML="验证成功";
+          setTimeout(function(){
+            parent.window.verifyCallback(true);
+            frameElement.parentElement.remove();
+          }, 1000);
+        }else{
+          text.style.background="#f00"
+          text.querySelector('.place').innerHTML="验证失败"
+          setTimeout(function(){
+            location.reload();
+          },1000)
+        }
+      }
+    }
+    var rebtn= document.querySelector(".re-btn")
+    var qubtn= document.querySelector(".qu-btn")
+    rebtn.onclick=function(){
+      location.reload();
+    }
+    qubtn.onclick=function(){
+      frameElement.parentElement.remove();
+    }
+  </script>
+</body>
+
+</html>
