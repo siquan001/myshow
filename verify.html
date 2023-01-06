@@ -150,13 +150,42 @@
     <span></span>
   </div>
   <script>
+    !function(){
+    var URLreadStr='?';
+    var URLreader={
+        read:function(str){
+            URLreadStr=typeof str=='string'&&str?str:'?';
+            readurl();
+        },
+        version:'1.0.0'
+    }
+    var readObj={};
+    function readurl(){
+        var url=decodeURI(location.href);
+        if(url.indexOf(URLreadStr)==-1) return;
+        url=url.substring(url.indexOf(URLreadStr)+URLreadStr.length,url.length);
+        var cacheArray=url.split('&');
+        for(var i=0;i<cacheArray.length;i++){
+            if(cacheArray[i].indexOf('=')!=-1){
+                readObj[cacheArray[i].substring(0,cacheArray[i].indexOf('='))]=cacheArray[i].substring(cacheArray[i].indexOf('=')+1,cacheArray[i].length);
+            }
+        }
+    }
+    readurl();
+    function $_GET(str){
+        if('string'!=typeof str||!str) return;
+        return readObj[str];
+    }
+    window.$_GET=$_GET;
+    window.URLreader=URLreader;
+}();
     var x,y,w = 42, r = 10, PI = Math.PI;
     if(window.innerWidth<390){
       x = Math.random() * 200 + 50, y = Math.random() * 180;
     }else{
       x = Math.random() * 250 + 50, y = Math.random() * 180;
     }
-
+    var isEmbed=$_GET('embed');
     var canvas = document.getElementById("canvas");
     var block = document.getElementById("block");
     var context = canvas.getContext('2d');
@@ -216,8 +245,13 @@
           text.style.background="#0f0"
           text.querySelector('.place').innerHTML="验证成功";
           setTimeout(function(){
-            parent.window.postMessage('success','*');
-            parent.window.postMessage('quit','*');
+            if(isEmbed){
+              parent.window.postMessage('embedsuccess:'+isEmbed,'*');
+            }else{
+              parent.window.postMessage('success','*');
+              parent.window.postMessage('quit','*');
+            }
+            
           }, 1000);
         }else{
           text.style.background="#f00"
@@ -244,8 +278,12 @@
           text.style.background="#0f0"
           text.querySelector('.place').innerHTML="验证成功";
           setTimeout(function(){
-            parent.window.postMessage('success','*');
-            parent.window.postMessage('quit','*');
+            if(isEmbed){
+              parent.window.postMessage('embedsuccess:'+isEmbed,'*');
+            }else{
+              parent.window.postMessage('success','*');
+              parent.window.postMessage('quit','*');
+            }
           }, 1000);
         }else{
           text.style.background="#f00"
@@ -262,7 +300,7 @@
       location.reload();
     }
     qubtn.onclick=function(){
-      parent.window.postMessage('quit','*');
+      if(!isEmbed)parent.window.postMessage('quit','*');
     }
   </script>
 </body>
