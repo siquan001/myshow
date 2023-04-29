@@ -1,0 +1,188 @@
+@import url(https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.10.4/font/bootstrap-icons.css);
+
+kugou-mini{
+  display: block;
+  width: 200px;
+  height: 50px;
+  position: relative;
+  background-color: #fff;
+}
+kugou-mini>img{
+  display: block;
+  float: left;
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  border-radius: 50%;
+}
+kugou-mini>img.playing{
+  animation: playings 10s linear infinite both;
+}
+@keyframes playings {
+  0%{
+    transform: rotate(0deg);
+  }100%{
+    transform: rotate(360deg);
+  }
+}
+kugou-mini .text{
+  width: 150px;
+  height: 50px;
+  float: left;
+  overflow: hidden;
+  pointer-events: none;
+}
+kugou-mini .lyric{
+  width: 150px;
+  height: 50px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: inherit;
+  float: left;
+  overflow: hidden;
+  pointer-events: none;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 18px;
+  font-size:12px;
+  display: none;
+}
+kugou-mini .text .song_name{
+  line-height: 20px;
+  padding-top: 5px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+}
+kugou-mini .text .song_album{
+  font-size: 12px;
+  color: #999;
+  line-height: 25px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+}
+kugou-mini .controls{
+  width: 150px;
+  height: 50px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: inherit;
+  opacity: 0;
+}
+kugou-mini .controls:hover{
+  opacity: 1;
+}
+kugou-mini .controls input{
+  width: 100%;
+  height: 20px;
+  display: block;
+}
+kugou-mini .controls .ct{
+  width: 100%;
+  height: 30px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+kugou-mini .controls .ct>*{
+  font-size: 17px;
+  color: #666;
+  width: 15%;
+  height: 20px;
+  cursor: pointer;
+}
+kugou-mini .controls .ct>*:hover{
+  color: #000;
+}
+kugou-mini .playlist
+{
+  width:100%;
+  height: 0px;
+  box-sizing: border-box;
+  border: #ddd solid 1px;
+  border-top: 0;
+  position: absolute;
+  top: 50px;
+  user-select: none;
+  overflow-y: auto;
+  transition: height .3s;
+  background-color: inherit;
+}
+kugou-mini .playlist.act{
+  height: 200px;
+}
+kugou-mini .playlist::-webkit-scrollbar{
+  display: none;
+}
+kugou-mini .playlist ul{
+  width: 100%;
+}
+kugou-mini .playlist li{
+  list-style:none;
+  width: calc(100% - 8px);
+  margin: 4px;
+  height: 24px;
+  line-height: 24px;
+  border-radius: 3px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 12px;
+  cursor: pointer;
+}
+kugou-mini .playlist li:hover{
+  background-color: #eee;
+}
+kugou-mini .playlist li.act{
+  color: #09f;
+}
+kugou-mini .playlist .search-box{
+  width: 100%;
+  height: 30px
+}
+kugou-mini .playlist .search-box input{
+  width: calc(100% - 20px);
+  padding: 0 10px;
+  line-height: 29px;
+  font-size: 12px;
+  border: 0;
+  outline: 0;
+  border-bottom: #333 solid 1px;
+}
+kugou-mini .sound-frame
+{
+  width:100px;
+  height: 0px;
+  box-sizing: border-box;
+  border: #ddd solid 1px;
+  border-top: 0;
+  position: absolute;
+  top: 50px;
+  left: 25px;
+  user-select: none;
+  transition: height .3s;
+  background-color: inherit;
+  overflow: hidden;
+}
+kugou-mini .sound-frame.act{
+  height: 30px;
+}
+kugou-mini .sound-frame input{
+  width: 100%;
+  height: 100%;
+}
+kugou-mini .playlist ul li span.vip{
+  font-size: 10px;
+  color: gold;
+  border: gold solid 1px;
+  border-radius: 2px;
+  line-height: 15px;
+  margin-right: .5em;
+}

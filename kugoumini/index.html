@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kugou Mini</title>
+  <link rel="stylesheet" href="./kugoumini.css">
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    nav{
+      width: 100%;
+      height: 50px;
+      border-bottom: #ddd solid 1px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #fff;
+    }
+    nav .logo{
+      font-size: 20px;
+      line-height: 50px;
+      padding-left: .5em;
+      float: left;
+    }
+    kugou-mini{
+      float: right;
+      height: 50px;
+    }
+    main{
+      padding: 20px;
+      padding-top: 70px;
+    }
+  </style>
+  <link href="https://cdn.bootcdn.net/ajax/libs/github-markdown-css/5.2.0/github-markdown-light.css" rel="stylesheet">
+</head>
+<body>
+  <nav>
+    <div class="logo">Kugou Mini Player</div>
+    <kugou-mini id="kgm"></kugou-mini>
+    <kugou-mini id="kgm2"></kugou-mini>
+  </nav>
+  <main class="markdown-body">
+    <h1>使用方法</h1>
+    <ol>
+      <li>点击左侧图片可显示和关闭歌词，hover可显示控制面板</li>
+      <li>点<i class="bi bi-volume-down"></i>调整声音</li>
+      <li>点<i class="bi bi-music-note-list"></i>打开歌曲列表</li>
+      <li>点<i class="bi bi-search"></i>搜索歌曲播放</li>
+    </ol>
+    <h1>引用方法</h1>
+    KugouMiniPlayer固定高度50px，请找合适位置安放。
+    <p>HTML:</p>
+    <pre>
+&lt;link rel="stylesheet" href="./kugoumini.css"&gt;
+&lt;kugou-mini id="id"&gt;&lt;/kugou-mini&gt;
+&lt;script src="./kugoumini.js"&gt;&lt;/script&gt;</pre>
+    <p>JavaScript:</p>
+    <pre>KugouMiniPlayer.init('id',[musicList:Array])</pre>
+    <h2>musicList格式</h2>
+    <pre>[{
+  "hash":"musicHash",// like 02e945cac3e2371685880c8050aeaa72
+  "albumid":"musicAlbumId", //like 28378420
+  "name":"musicName",// like 艾索 - 晚安喵
+  "musicUrl":"musicUrl"// 音乐url ，非必须
+},...]</pre>
+    <h2>具体示例</h2>
+    <p>参见本页源代码</p>
+    <h2>Download</h2>
+    <p><a href="./kugoumini.css">Download CSS</a> <a href="./kugoumini.js">Download JS</a></p>
+    <h3>CopyRight</h3>
+    <p>Kugou Mini Player 插件以<b>MIT License</b>声明</p>
+    <p>作者：陈思全</p>
+    <p>HomePage：<a href="https://siquan001.github.io/">https://siquan001.github.io/</a></p>
+    <p>感谢 Bootstrap Icons(MIT) 提供图标支持</p>
+  </main>
+</body>
+<script src="./kugoumini.js"></script>
+<script>
+  var testList = [
+  { "hash": "02e945cac3e2371685880c8050aeaa72", "albumid": "28378420", "name": "艾索 - 晚安喵" },
+  { "hash": "53634f4002b63334744c45314129afc1", "albumid": "45759999", "name": "贝乐虎、土豆王国小乐队、奶糖乐团 - 勇气大爆发" },
+  { "hash": "cd0af377206daaacaee61b76d32360a3", "albumid": "39082569", "name": "周深 - 起风了" },
+  { "hash": "67662b64848637797eb0fd84d0fa2bd2", "albumid": "36755614", "name": "傅如乔 - 微微" },
+]
+KugouMiniPlayer.init('kgm');
+KugouMiniPlayer.init('kgm2',testList);
+</script>
+</html>
