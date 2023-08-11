@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+  <style>
+    .cube{
+      width: 120px;
+      height: 90px;
+    }
+    .cube>div{
+      width: 30px;
+      height: 30px;
+      float: left;
+    }
+    .cube>div>div{
+      width: 10px;
+      height: 10px;
+      box-sizing: border-box;
+      border: #000 solid 1px;
+      float: left;
+    }
+  </style>
+</head>
+<body>
+  <h1>一直这么移，魔方会还原吗？</h1>
+
+  <div class="cube">
+    <div class="w"></div>
+    <div class="u">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div class="w"></div>
+    <div class="w"></div>
+    <div class="l">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div class="f">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div class="r">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div class="b">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div class="w"></div>
+    <div class="d">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <div class="w"></div>
+    <div class="w"></div>
+  </div>
+
+  <p>魔方步骤公式: <input type="text" id="bzi"/></p>
+  <p>（只支持U,U',D,D',R,R',L,L',F,F',B,B'，步骤之间请用空格隔开！如：<code>U' R' D F</code>）</p>
+  <p>状态：<span id="statu">未开始</span></p>
+  <button onclick="start.call(this)">开始！！！</button>
+  <script src="./index.js"></script>
+  <hr>
+  <p>我一直想过，如果魔方一直U' R'，几步才能还原？还是一直不会还原呢？让这个程序帮你解答！</p>
+  <p>闲的没事可以自己动手试一下！</p>
+</body>
+</html>
