@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>非常准的心理测试</title>
+  <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+  <div class="page-start page">
+    <h1>非常准的心理测试</h1>
+    <p>灵感来源于<a href="https://www.bilibili.com/video/BV1sz4y1y7KJ/" target="_blank" rel="noopener noreferrer">【warma】沃玛的新番更新！从现在开始放飞自我【沃玛的生活/第三期】</a></p>
+    <button>开始！</button>
+  </div>
+  <div class="page page-t page-t1">
+    <h1>你最喜欢的水果是？</h1>
+    <ul>
+      <li>草莓</li>
+      <li>苹果</li>
+      <li>西瓜</li>
+      <li>葡萄</li>
+      <li>其它</li>
+    </ul>
+  </div>
+  <div class="page page-t page-t2">
+    <h1>你最喜欢的蔬菜是？</h1>
+    <ul>
+      <li>白菜</li>
+      <li>包菜</li>
+      <li>芹菜</li>
+      <li>菠菜</li>
+      <li>其它</li>
+    </ul>
+  </div>
+  <div class="page page-t page-t3">
+    <h1>你最喜欢的肉类是？</h1>
+    <ul>
+      <li>鸡肉</li>
+      <li>牛肉</li>
+      <li>鱼肉</li>
+      <li>猪肉</li>
+      <li>其它</li>
+    </ul>
+  </div>
+  <div class="page page-result">
+    <h1>测试结果</h1>
+    <ul>
+      <li>你最喜欢的水果是:【{a1}】</li>
+      <li>你最喜欢的蔬菜是:【{a2}】</li>
+      <li>你最喜欢的肉类是:【{a3}】</li>
+    </ul>
+    <button>准吧！再测一次</button>
+  </div>
+</body>
+<script>
+  var r={
+    r1:null,
+    r2:null,
+    r3:null
+  }
+  var q=0;
+  document.querySelector(".page-start").style.display='block';
+  document.querySelector(".page-start button").onclick=function(){
+  document.querySelector(".page-start").style.display='';
+  document.querySelector(".page-t1").style.display='block';
+  }
+  document.querySelectorAll(".page-t1 li").forEach(function(li){li.onclick=function(){
+    r.r1=this.innerHTML;
+    document.querySelector(".page-t1").style.display='';
+    document.querySelector(".page-t2").style.display='block';
+  }});
+  document.querySelectorAll(".page-t2 li").forEach(function(li){li.onclick=function(){ 
+    if((this.innerHTML=='其它'&&r.r1!='其它')||(this.innerHTML!='其它'&&r.r1=='其它')){
+      if(q==0){
+        alert('你怎么能不按套路出牌呢？');
+        alert('给我重选！');
+        q=1;
+      }else{
+        alert('非要这样是吧！');
+        alert('行！');
+        close();
+      }
+      
+    }else{
+      r.r2=this.innerHTML;
+      document.querySelector(".page-t2").style.display='';
+      document.querySelector(".page-t3").style.display='block';
+    }
+    
+  }});
+  document.querySelectorAll(".page-t3 li").forEach(function(li){
+    li.onclick=function(){
+      if(this.innerHTML=='其它'&&r.r2!='其它'||(this.innerHTML!='其它'&&r.r2=='其它')){
+      if(q==0){
+        alert('你怎么能不按套路出牌呢？');
+        alert('给我重选！');
+        q=1;
+      }else{
+        alert('非要这样是吧！');
+        alert('行！');
+        close();
+      }
+      
+    }else{
+      r.r3=this.innerHTML;
+      document.querySelector(".page-t3").style.display='';
+      document.querySelector(".page-result").style.display='block';
+      if(r.r1=='其它'){
+        document.querySelector(".page-result ul").innerHTML='<li>你个挑食鬼！</li>'
+      }else{
+        document.querySelector(".page-result ul").innerHTML=document.querySelector(".page-result ul").innerHTML
+        .replace('{a1}',r.r1)
+        .replace('{a2}',r.r2)
+        .replace('{a3}',r.r3)
+      }
+    }
+    }
+  });
+  document.querySelector(".page-result button").onclick=function(){
+    document.querySelector(".page-result ul").innerHTML='<li>你最喜欢的水果是:【{a1}】</li>\
+      <li>你最喜欢的蔬菜是:【{a2}】</li>\
+      <li>你最喜欢的肉类是:【{a3}】</li>'
+    document.querySelector(".page-start").style.display='block';
+      document.querySelector(".page-result").style.display='';
+  }
+</script>
+</html>

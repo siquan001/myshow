@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>非常准的心理测试 2</title>
+  <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+  <div class="page-start page">
+    <h1>非常准的心理测试 2</h1>
+    <p>灵感来源于<a href="https://www.bilibili.com/video/BV1sz4y1y7KJ/" target="_blank"
+        rel="noopener noreferrer">【warma】沃玛的新番更新！从现在开始放飞自我【沃玛的生活/第三期】</a></p>
+    <button>开始！</button>
+  </div>
+  <div class="page page-t page-t1">
+    <h1>你最喜欢的水果是？</h1>
+    <ul>
+      <li>草莓</li>
+      <li>苹果</li>
+      <li>西瓜</li>
+      <li>葡萄</li>
+      <li>其它</li>
+    </ul>
+  </div>
+  <div class="page page-t page-t2">
+    <h1>你最喜欢的蔬菜是？</h1>
+    <ul>
+      <li>白菜</li>
+      <li>包菜</li>
+      <li>芹菜</li>
+      <li>菠菜</li>
+      <li>其它</li>
+    </ul>
+  </div>
+  <div class="page page-t page-t3">
+    <h1>你最喜欢的肉类是？</h1>
+    <ul>
+      <li>鸡肉</li>
+      <li>牛肉</li>
+      <li>鱼肉</li>
+      <li>猪肉</li>
+      <li>其它</li>
+    </ul>
+  </div>
+  <div class="page page-result">
+    <h1>测试结果</h1>
+    <ul>
+      <li>你最喜欢的水果是:【{a1}】</li>
+      <li>你最喜欢的蔬菜是:【{a2}】</li>
+      <li>你最喜欢的肉类是:【{a3}】</li>
+    </ul>
+    <button>准吧！再测一次</button>
+  </div>
+</body>
+<script>
+  var r = {
+    r1: null,
+    r2: null,
+    r3: null
+  }
+  var q = 0;
+  document.querySelector(".page-start").style.display = 'block';
+  document.querySelector(".page-start button").onclick = function () {
+    document.querySelector(".page-start").style.display = '';
+    document.querySelector(".page-t1").style.display = 'block';
+  }
+  var t1zy='苹果、梨、葡萄、红提、枣、柑橘、柚、桃、西瓜、杏、甜瓜、香瓜、荔枝、甘蔗、柿、柠檬、香蕉、芒果、菠萝、哈密瓜、李、石榴、枸杞、山楂、椰子、桑葚、柚子、草莓、沙糖桔、木瓜、橙、圣女果、龙眼、黄瓜、枇杷、山竹、红毛丹、无花果、布朗、杨桃、人参果、猕猴桃、芭乐、杨梅、乌梅、蓝莓、西梅、释迦、百花果、黄皮、樱桃、雪莲果、榴莲、火龙果、番石榴、菠萝蜜、百香果、罗汉果、莲雾、核桃、板栗、开心果、瓜子、榛子、银杏、松子、果仁、白果'.split('、');
+  var t2zy='大葱、芹菜、蒜苗、小葱、菠菜、韭菜、西芹、南瓜、冬瓜、黄瓜、辣椒、花菜、莲藕、木耳、蒜苔、白菜、青菜、包菜、生菜、菠菜、韭菜、韭黄、蒜苗、芹菜、水芹、苦菊、茼蒿、苋菜、香椿、冲菜、贡菜、芥兰、荠菜、茴香、蕹菜、芥菜、莼菜、发菜、海带、紫菜、米苋、芜荽、油菜、辣根、萝卜、大葱、小葱、洋葱、生姜、洋姜、莲菜、蒜薹、莴笋、山药、芋头、魔芋、土豆、红薯、凉薯、地瘤、芦笋、竹笋、牛蒡、茭白、荞头、芦笋、荸荠'.split('、');
+  var t3zy='猪肉、羊肉、牛肉、鸡肉、鸭肉、鹅肉、鱼肉、虾肉、鸟肉'.split('、');
+  document.querySelectorAll(".page-t1 li").forEach(function (li) {
+    li.onclick = function () {
+      if (this.innerHTML == '其它') {
+        document.querySelector(".page-t1").classList.add('q');
+        document.querySelector(".page-t1 ul").innerHTML=t1zy.map(function(v){
+          return '<li>'+v+'</li>'
+        }).join('');
+        document.querySelectorAll(".page-t1 li").forEach(function (li) {
+          li.onclick = function () {
+            r.r1 = this.innerHTML;
+            document.querySelector(".page-t1").style.display = '';
+            document.querySelector(".page-t2").style.display = 'block';
+          }
+        });
+      } else {
+        r.r1 = this.innerHTML;
+        document.querySelector(".page-t1").style.display = '';
+        document.querySelector(".page-t2").style.display = 'block';
+      }
+
+    }
+  });
+  document.querySelectorAll(".page-t2 li").forEach(function (li) {
+    li.onclick = function () {
+      if (this.innerHTML == '其它') {
+        document.querySelector(".page-t2").classList.add('q');
+
+        document.querySelector(".page-t2 ul").innerHTML=t2zy.map(function(v){
+          return '<li>'+v+'</li>'
+        }).join('');
+        document.querySelectorAll(".page-t2 li").forEach(function (li) {
+          li.onclick = function () {
+            r.r2 = this.innerHTML;
+        document.querySelector(".page-t2").style.display = '';
+        document.querySelector(".page-t3").style.display = 'block';
+          }
+        });
+      } else {
+        r.r2 = this.innerHTML;
+        document.querySelector(".page-t2").style.display = '';
+        document.querySelector(".page-t3").style.display = 'block';
+      }
+
+    }
+  });
+  document.querySelectorAll(".page-t3 li").forEach(function (li) {
+    li.onclick = function () {
+      if (this.innerHTML == '其它') {
+        document.querySelector(".page-t3").classList.add('q');
+        document.querySelector(".page-t3 ul").innerHTML=t3zy.map(function(v){
+          return '<li>'+v+'</li>'
+        }).join('');
+        document.querySelectorAll(".page-t3 li").forEach(function (li) {
+          li.onclick = function () {
+            r.r3 = this.innerHTML;
+        document.querySelector(".page-t3").style.display = '';
+        document.querySelector(".page-result").style.display = 'block';
+        if (r.r1 == '其它') {
+          document.querySelector(".page-result ul").innerHTML = '<li>你个挑食鬼！</li>'
+        } else {
+          document.querySelector(".page-result ul").innerHTML = document.querySelector(".page-result ul").innerHTML
+            .replace('{a1}', r.r1)
+            .replace('{a2}', r.r2)
+            .replace('{a3}', r.r3)
+        }
+          }
+        });
+      } else {
+        r.r3 = this.innerHTML;
+        document.querySelector(".page-t3").style.display = '';
+        document.querySelector(".page-result").style.display = 'block';
+        if (r.r1 == '其它') {
+          document.querySelector(".page-result ul").innerHTML = '<li>你个挑食鬼！</li>'
+        } else {
+          document.querySelector(".page-result ul").innerHTML = document.querySelector(".page-result ul").innerHTML
+            .replace('{a1}', r.r1)
+            .replace('{a2}', r.r2)
+            .replace('{a3}', r.r3)
+        }
+      }
+    }
+  });
+  document.querySelector(".page-result button").onclick = function () {
+    document.querySelector(".page-result ul").innerHTML = '<li>你最喜欢的水果是:【{a1}】</li>\
+      <li>你最喜欢的蔬菜是:【{a2}】</li>\
+      <li>你最喜欢的肉类是:【{a3}】</li>'
+    document.querySelector(".page-start").style.display = 'block';
+    document.querySelector(".page-result").style.display = '';
+  }
+</script>
+
+</html>
