@@ -1,0 +1,35 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+body{
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+p.yiyan-container{
+  max-width: calc(100% - 200px);
+  font-size: 40px;
+  line-height: 50px;
+  font-weight: 300;
+  text-align: center;
+}
+
+p.yiyan-container span.cursor{
+  border-left: #000 solid 1px;
+  margin-left:10px;
+  animation: cursor 1s linear infinite;
+}
+
+@keyframes cursor {
+  0%{
+    opacity: 1;
+  }50%{
+    opacity: 0;
+  }100%{
+    opacity: 1;
+  }
+}
